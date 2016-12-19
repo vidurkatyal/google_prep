@@ -1,0 +1,35 @@
+// perform the level order traversal of a bt i.e visiting nodes level by level
+
+vector<vector<int>> levelOrder(TreeNode* root) 
+{
+        
+	vector<vector<int> >answer;
+        vector<int>ans;
+        if(root==NULL)
+            return answer;
+        
+        int prevLevel=1;
+        queue<pair<TreeNode*,int> >q;
+        q.push(make_pair(root,1));
+        while(!q.empty())
+        {
+            TreeNode* node=q.front().first;
+            int data=node->val;
+            int level=q.front().second;
+            q.pop();
+            if(prevLevel!=level)
+            {
+                answer.push_back(ans);
+                ans.clear();
+                prevLevel=level;
+            }
+            ans.push_back(data);
+            if(node->left)
+                q.push(make_pair(node->left,level+1));
+            if(node->right)
+                q.push(make_pair(node->right,level+1));
+        }
+        if(ans.size()>0)
+            answer.push_back(ans);
+	return answer;
+}

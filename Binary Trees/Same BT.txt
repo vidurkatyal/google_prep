@@ -1,3 +1,5 @@
+// given two binary trees whose roots are given, detemine whether they are same or not
+
 bool isSame(TreeNode* root1, TreeNode* root2)
 {
 	if(root1==NULL && root2==NULL)

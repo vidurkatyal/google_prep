@@ -1,0 +1,48 @@
+//perform the zigzag level order traversal of a bt
+
+vector<vector<int>> zigzagLevelOrder(TreeNode* root) 
+{
+        
+	vector<vector<int> >answer;
+        vector<int>ans;
+        if(root==NULL)
+            return answer;
+        
+        int preLevel=1;
+        queue<pair<TreeNode*,int> >q;
+        q.push(make_pair(root,1));
+        while(!q.empty())
+        {
+            TreeNode* node=q.front().first;
+            int level=q.front().second;
+            q.pop();
+            if(preLevel!=level)
+            {
+                if(preLevel%2)
+                    answer.push_back(ans);
+                else
+                {
+                    reverse(ans.begin(),ans.end());
+                    answer.push_back(ans);
+                }
+                ans.clear();
+                preLevel=level;
+            }
+            ans.push_back(node->val);
+            if(node->left)
+                q.push(make_pair(node->left,level+1));
+            if(node->right)
+                q.push(make_pair(node->right,level+1));
+        }
+        if(ans.size()>0)
+        {
+            if(preLevel%2)
+                answer.push_back(ans);
+            else
+            {
+                reverse(ans.begin(),ans.end());
+                answer.push_back(ans);
+            }
+        }
+        return answer;
+}

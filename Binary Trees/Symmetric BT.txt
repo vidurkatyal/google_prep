@@ -1,0 +1,12 @@
+//given two binary trees whose roots are given determine whether they are mirror images of each other or not
+
+bool isMirror(TreeNode* root1, TreeNode* root2)
+{
+	if(root1==NULL && root2==NULL)
+		return 1;
+	if(root1==NULL || root2==NULL)
+		return 0;
+	if(root1->val==root2->val)
+		return isSame(root1->left,root2->right) && isSame(root1->right,root2->left);
+	return 0;
+}
