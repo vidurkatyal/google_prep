@@ -1,0 +1,28 @@
+// find the next greater element for each element in the array
+
+void nextGreater(vector<int>& array) {
+	
+	int n=array.size();
+	stack<int>s;
+	if(n==0)
+		return;
+		
+	int ng[n+1],i,j;
+	ng[n-1]=-1;
+	
+	//using stack to store the next greater element of each element of array
+	s.push(array[n-1]);
+	for(i=n-2;i>=0;i--)
+	{
+		while(!s.empty() && array[i]<=s.top())
+			s.pop();
+		if(!s.empty())
+			ng[i]=s.top();
+		else
+			ng[i]=-1;
+		s.push(array[i]);
+	}
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

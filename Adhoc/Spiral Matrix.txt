@@ -1,0 +1,40 @@
+// Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
+
+vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        
+        vector<int>answer;
+        if(matrix.size()==0)
+            return answer;
+        
+        int i=0,j=0,k=matrix.size(),l=matrix[0].size();
+        
+        // i is first row index , k is last row index , j is first column index , l is last column index
+        while(i<k && j<l)
+        {
+            for(int b=j;b<l;b++)
+                answer.push_back(matrix[i][b]);
+            i++;
+            
+            for(int b=i;b<k;b++)
+                answer.push_back(matrix[b][l-1]);
+            l--;
+            
+            if(i<k)
+            {
+                for(int b=l-1;b>=j;b--)   
+                    answer.push_back(matrix[k-1][b]);
+                k--;
+            }
+            
+            if(j<l)
+            {
+                for(int b=k-1;b>=i;b--)
+                    answer.push_back(matrix[b][j]);
+                j++;
+            }
+        }
+        return answer;
+}
+
+Time Complexity: O(n^2)
+Auxillary Space: O(1)
