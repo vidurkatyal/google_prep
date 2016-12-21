@@ -12,7 +12,10 @@ int maxProfit(vector<int>& prices) {
         
         if(prices.size()==0)
             return 0;
+            
         int ans=0;
+        
+        // adding all the possible profits one can make by buying at day i and selling at day i+1
         for(int i=0;i<(prices.size()-1);i++)
         {
             if(prices[i+1]>prices[i])
@@ -20,3 +23,6 @@ int maxProfit(vector<int>& prices) {
         }        
         return ans;
 }
+
+Time Complexity: O(n)
+Auxillary Space: O(1)

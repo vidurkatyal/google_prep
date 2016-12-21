@@ -12,6 +12,9 @@ int maxProfit(vector<int>& prices) {
         if(n==0)
             return 0;
         int maxu=prices[n-1],ans=0;
+
+	//finding the optimal answer from end to i
+	//net answer is the maximum of all the optimal answers obtained above 
         for(int i=n-2;i>=0;i--)
         {
             ans=max(ans,maxu-prices[i]);
@@ -19,3 +22,6 @@ int maxProfit(vector<int>& prices) {
         }
         return ans;
 }
+
+Time Complexity: O(n)
+Auxillary Space: O(1)

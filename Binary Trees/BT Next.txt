@@ -1,0 +1,43 @@
+/*
+
+Given a binary tree
+
+    struct TreeLinkNode {
+      TreeLinkNode *left;
+      TreeLinkNode *right;
+      TreeLinkNode *next;
+    }
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+Initially, all next pointers are set to NULL.
+
+*/
+
+void connect(TreeLinkNode *root) {
+        
+        if(root==NULL)
+            return;
+        
+        queue<pair<TreeLinkNode*,int> >q;
+        q.push(make_pair(root,1));
+        int preLevel=1;
+        TreeLinkNode* prevNode = root;
+        while(!q.empty())
+        {
+            TreeLinkNode* curr=q.front().first;
+            int level = q.front().second;
+            q.pop();
+            if(preLevel!=level)
+                prevNode->next=NULL;
+            else
+                prevNode->next=curr;
+            preLevel=level;
+            prevNode=curr;
+            if(curr->left)
+                q.push(make_pair(curr->left,level+1));
+            if(curr->right)
+                q.push(make_pair(curr->right,level+1));
+        }
+        prevNode->next=NULL;
+        return;
+}

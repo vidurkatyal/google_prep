@@ -1,0 +1,30 @@
+// find the minimum depth of a bt ie. the leaf node at the minimum distance from the root
+
+int minDepth(TreeNode* root) {
+        
+        if(root==NULL)
+            return 0;
+        
+        queue<pair<TreeNode*,int> >q;
+        q.push(make_pair(root,1));
+        while(!q.empty())
+        {
+            TreeNode* curr=q.front().first;
+            int level=q.front().second;
+            q.pop();
+            int f=1;
+            if(curr->left)
+            {
+                q.push(make_pair(curr->left,level+1));
+                f=0;
+            }
+            if(curr->right)
+            {
+                q.push(make_pair(curr->right,level+1));
+                f=0;
+            }
+            if(f==1)
+                return level;
+        }
+        return -1;
+}

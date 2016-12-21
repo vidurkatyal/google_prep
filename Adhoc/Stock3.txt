@@ -1,0 +1,39 @@
+/* 
+
+Say you have an array for which the ith element is the price of a given stock on day i.
+
+If you were only permitted to complete at most two transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+
+*/
+
+int maxProfit(vector<int>& prices) {
+        
+        int n=prices.size();
+        if(n==0)
+            return 0;
+        
+        int ans[n+1],maxu=prices[n-1],minu=prices[0];
+        ans[n-1]=0;
+        
+        //storing the optimal answer as we move from the end to i
+        for(int i=n-2;i>=0;i--)
+        {
+            ans[i]=max(ans[i+1],maxu-prices[i]);
+            maxu=max(maxu,prices[i]);
+        }
+        
+        int ans1=0,answer=0;
+        
+	//finding the optimal answer from the start to i
+        //net answer is the optimal answer from ( start to i + end to i )
+        for(int i=1;i<n;i++)
+        {
+            ans1=max(ans1,prices[i]-minu);
+            minu=min(minu,prices[i]);
+            answer=max(answer,ans1+ans[i]);
+        }
+        return answer;
+}
+
+Time Compexity: O(n)
+Auxillary Space: O(n)
