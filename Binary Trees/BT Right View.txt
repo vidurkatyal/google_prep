@@ -1,0 +1,35 @@
+// print the right view of a bt
+
+vector<int> rightSideView(TreeNode* root) {
+        
+        vector<int>answer;
+        if(root==NULL)
+            return answer;
+            
+        queue<pair<TreeNode* ,int> >q;
+        q.push(make_pair(root,1));
+        int prevLevel=1;
+        TreeNode* prevNode=root;
+        while(!q.empty())
+        {
+            TreeNode* curr=q.front().first;
+            int level=q.front().second;
+            q.pop();
+            
+            //push the node which occurs last in each level
+	    if(prevLevel!=level)
+                answer.push_back(prevNode->val);
+            prevLevel=level;
+            prevNode=curr;
+            
+            if(curr->left)
+                q.push(make_pair(curr->left,level+1));
+            if(curr->right)
+                q.push(make_pair(curr->right,level+1));
+        }
+        answer.push_back(prevNode->val);
+        return answer;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

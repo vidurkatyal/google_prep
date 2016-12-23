@@ -1,0 +1,37 @@
+// print the preorder traversal of the given binary tree
+
+Recursive soln
+
+void preorder(TreeNode* root)
+{
+	if(root==NULL)
+		return;
+	cout<<root->val<<" ";
+	preorder(root->left);
+	preorder(root->right);
+	return;
+}
+
+Iterative soln
+
+void preorder(TreeNode* root)
+{
+	if(root==NULL)	
+		return;
+	stack<TreeNode* >s;
+	s.push(root);
+	while(!s.empty())
+	{
+		TreeNode* curr=s.top();
+		cout<<curr->val<<" ";
+		s.pop();
+		
+		// pushing right before left so that left can be processed first
+		if(curr->right)
+			s.push(curr->right);
+		if(curr->left)
+			s.push(curr->left);
+	}
+}
+
+Time Complexity: O(n)
