@@ -1,0 +1,49 @@
+/*
+given a vector of reverse polish notation having operators "+", "-", "*", "/" evaluate the answer
+
+for example:
+["2", "1", "+", "3", "*"] -> ((2 + 1) * 3) -> 9
+["4", "13", "5", "/", "+"] -> (4 + (13 / 5)) -> 6
+
+*/
+
+int evalRPN(vector<string>& tokens) {
+        
+        
+        if(tokens.size()==0)
+            return 0;
+        
+        int ans=0,n=tokens.size();
+        stack<int>s;
+        for(int i=0;i<n;i++)
+        {
+            string str=tokens[i];
+            std::string::size_type sz; 
+            if(str=="+" || str=="-" || str=="/" || str=="*")
+            {
+                int val=0;
+                int val1=s.top();
+                s.pop();
+                int val2=s.top();
+                s.pop();
+                if(str=="+")
+                    val=val1+val2;
+                else if(str=="-")
+                    val=val2-val1;
+                else if(str=="*")
+                    val=val1*val2;
+                else
+                    val=val2/val1;
+                s.push(val);
+            }
+            else
+            {
+                int value=std::stoi(str,&sz);
+                s.push(value);
+            }
+        }
+        return s.top();
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

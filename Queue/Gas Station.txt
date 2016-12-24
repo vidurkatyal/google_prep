@@ -1,0 +1,88 @@
+/*
+
+There are N gas stations along a circular route, where the amount of gas at station i is gas[i].
+You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i to its next station (i+1). 
+You begin the journey with an empty tank at one of the gas stations.
+Return the starting gas station's index if you can travel around the circuit once, otherwise return -1.
+
+*/
+
+// first soln is an obvious one where we try each station as starting point and check whether we can return to it or not.
+int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        
+        int i,j,n=gas.size(),f=-1;
+        for(i=0;i<n;i++)
+        {
+            int start=i,curr=start,Gas=0,Cost=0,g=1;
+            while(1)
+            {
+                Gas+=gas[curr];
+                Gas-=cost[curr];
+                if(Gas<0)
+                {
+                    g=0;
+                    break;
+                }
+                curr=(curr+1)%n;
+                if(curr==start)
+                    break;
+            }
+            if(g==1)
+            {
+                f=i;
+                break;
+            }
+        }
+        return f;
+}
+
+Time Complexity: O(n^2)
+Auxillary Space: O(1)
+
+
+
+OPTIMAL SOLN
+/*
+
+We can use a Queue to store the current tour. We first enqueue first petrol pump to the queue, 
+we keep enqueueing petrol pumps till we either complete the tour, or current amount of petrol becomes negative. 
+If the amount becomes negative, then we keep dequeueing petrol pumps till the current amount becomes positive or 
+queue becomes empty.
+
+Instead of creating a separate queue, we use the given array itself as queue. We maintain two index variables 
+start and end that represent rear and front of queue.
+
+*/
+
+int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        
+        int n=gas.size();
+        if(n==1)
+        {
+            if(gas[0]>=cost[0])
+                return 0;
+            return -1;
+        }
+            
+        int start=0,end=1;
+        int petrol=gas[start]-cost[start];
+        
+        while(end!=start || petrol<0)
+        {
+            while(petrol<0 && start!=end)
+            {
+                petrol-=gas[start]-cost[start];
+                start=(start+1)%n;
+                
+                if(start==0)
+                    return -1;
+            }
+            
+            petrol+=gas[end]-cost[end];
+            end=(end+1)%n;
+        }
+        return start;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(1)

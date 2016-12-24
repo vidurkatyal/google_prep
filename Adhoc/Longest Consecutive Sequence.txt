@@ -1,0 +1,67 @@
+/*
+
+given a vector find the longest consecutive sequence in it.
+for example:
+[200,100,2,1,3,4]
+longest sequence is [1,2,3,4] ie. 4
+
+*/
+
+int longestConsecutive(vector<int>& nums) {
+        
+        if(nums.size()==0)
+            return 0;
+        
+        std::sort(nums.begin(),nums.end());
+        int ans=1,maxu=1;
+        for(int i=1;i<nums.size();i++)
+        {
+            if(nums[i]==nums[i-1])
+                continue;
+            if(nums[i]==(nums[i-1]+1))
+                ans++;
+            else
+            {
+                maxu=max(ans,maxu);
+                ans=1;
+            }
+        }
+        maxu=max(maxu,ans);
+        return maxu;
+}
+
+Time Complexity: O(nlogn)
+Auxillary Space: O(1)
+
+int longestConsecutive(vector<int>& nums) {
+        
+        if(nums.size()==0)
+            return 0;
+        
+        unordered_set<int> record(nums.begin(),nums.end());
+        int ans=1;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(record.find(nums[i])==record.end())
+                continue;
+                
+            record.erase(nums[i]);
+            int prev=nums[i]-1,next=nums[i]+1;
+            while(!(record.find(prev)==record.end()))
+            {
+                record.erase(prev);
+                prev--;
+            }
+            while(!(record.find(next)==record.end()))
+            {
+                record.erase(next);
+                next++;
+            }
+            
+            ans=max(ans,next-prev-1);
+        }
+        return ans;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

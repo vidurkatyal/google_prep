@@ -1,0 +1,23 @@
+//find a root to leaf path in the given bt equal to the given sum
+
+bool isSum(TreeNode* node,int target,int currsum) {
+        
+	if(node==NULL)
+            return 0;
+        if(node->left==NULL && node->right==NULL)
+        {
+            if((currsum+node->val)==target)
+                return 1;
+            return 0;
+        }
+        return isSum(node->left,target,currsum+node->val) || isSum(node->right,target,currsum+node->val);
+}
+
+bool hasPathSum(TreeNode* root, int sum) {
+        
+	if(root==NULL)
+            return 0;
+        return isSum(root,sum,0);
+}
+
+Time Complexity: O(n)

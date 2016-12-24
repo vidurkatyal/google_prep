@@ -1,0 +1,12 @@
+//given an array where all the elements occur twice except one. Find the element occuring once
+
+int singleNumber(vector<int>& nums) {
+        
+        int ans=0;
+        for(int i=0;i<nums.size();i++)
+            ans=ans^nums[i];
+        return ans;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(1)
