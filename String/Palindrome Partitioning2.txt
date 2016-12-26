@@ -1,0 +1,175 @@
+/*
+
+Given a string s, partition s such that every substring of the partition is a palindrome.
+Return the minimum cuts needed for a palindrome partitioning of s.
+
+For example, given s = "aab",
+Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 cut
+
+*/
+
+SOLUTION 1 (Recursive Soln):
+
+int checkPalin(string s,int start,int end) {
+        
+	int ss=start,ee=end,f=1;
+        while(ss<ee)
+        {
+            if(s[ss]==s[ee])
+            {
+                ss++;
+                ee--;
+            }
+            else
+            {
+                f=0;
+                break;
+            }
+        }
+        return f;
+}
+
+int minimumCut(string s,int i,int j) {
+        
+	if(i==j)
+            return 0;
+        
+        if(checkPalin(s,i,j))
+            return 0;
+        
+        int ans=INT_MAX;
+        for(int k=i;k<j;k++)
+        {
+            int ans1=minimumCut(s,i,k);
+            int ans2=minimumCut(s,k+1,j);
+            ans=min(ans,ans1+ans2+1);
+        }
+        return ans;
+}
+
+int minCut(string s) {
+       
+        int n=s.size();
+        if(n==0)
+            return 0;
+        return minimumCut(s,0,n-1);
+}
+
+Time Complexity: O(2^n)
+
+Solution 2( DP Approach Matrix Chain):
+
+
+int minCut(string s) {
+       
+        int n=s.size();
+        if(n==0)
+            return 0;
+        
+        int C[n+1][n+1],P[n+1][n+1];
+        
+        //string of length is a palindrome
+        for(int i=0;i<n;i++)
+        {
+            C[i][i]=0;
+            P[i][i]=1;
+        }
+        
+        //L stands for the substring length which will vary from 2 to n
+        for(int L=2;L<=n;L++)
+        {
+            //i refers to the starting point of each possible L length substring
+            for(int i=0;i<(n-L+1);i++)
+            {
+                int j=i+L-1;
+                
+                if(L==2)
+                {
+                    if(s[i]==s[j])
+                        P[i][j]=1;
+                    else    
+                        P[i][j]=0;
+                }
+                else
+                {
+                    if(s[i]==s[j] && P[i+1][j-1]==1)
+                        P[i][j]=1;
+                    else
+                        P[i][j]=0;
+                }
+                
+                if(P[i][j]==1)
+                    C[i][j]=0;
+                else
+                {
+                    C[i][j]=INT_MAX;
+                    for(int k=i;k<j;k++)
+                        C[i][j]=min(C[i][j],C[i][k]+C[k+1][j]+1);
+                }
+            }
+        }
+        return C[0][n-1];
+}
+
+Time Complexity: O(n^3)
+
+Solution 3( Optimized DP approach):
+
+int minCut(string s) {	
+	
+	int n=s.size();
+        if(n==0)
+            return 0;
+        
+        
+        int C[1000005],P[900][900];
+        //string of length is a palindrome
+        for(int i=0;i<n;i++)
+        {
+            P[i][i]=1;
+        }
+        
+        //L stands for the substring length which will vary from 2 to n
+        for(int L=2;L<=n;L++)
+        {
+            //i refers to the starting point of each possible L length substring
+            for(int i=0;i<(n-L+1);i++)
+            {
+                int j=i+L-1;
+                
+                if(L==2)
+                {
+                    if(s[i]==s[j])
+                        P[i][j]=1;
+                    else    
+                        P[i][j]=0;
+                }
+                else
+                {
+                    if(s[i]==s[j] && P[i+1][j-1]==1)
+                        P[i][j]=1;
+                    else
+                        P[i][j]=0;
+                }
+                
+            }
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            if(P[0][i]==1)
+                C[i]=0;
+            else
+            {
+                C[i]=INT_MAX;
+                for(int j=0;j<i;j++)
+                {
+                    if(P[j+1][i]==1 && (1+C[j])<C[i])
+                        C[i]=C[j]+1;
+                }
+            }
+        }
+        return C[n-1];
+}
+
+Time Complexity: O(n^2)

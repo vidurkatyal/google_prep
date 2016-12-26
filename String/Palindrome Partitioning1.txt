@@ -1,0 +1,71 @@
+/*
+
+Given a string s, partition s such that every substring of the partition is a palindrome.
+Return all possible palindrome partitioning of s.
+
+For example, given s = "aab",
+Return
+[
+  ["aa","b"],
+  ["a","a","b"]
+]
+
+*/
+
+int checkPalin(string s,int start,int end) {
+        
+	int ss=start,ee=end,f=1;
+        while(ss<ee)
+        {
+            if(s[ss]==s[ee])
+            {
+                ss++;
+                ee--;
+            }
+            else
+            {
+                f=0;
+                break;
+            }
+        }
+        return f;
+}
+
+vector<vector<string> >answer;
+vector<string>ans;
+    
+void rec(string s,int pos) {
+        
+	if(pos==s.size())
+        {
+            answer.push_back(ans);
+            return;
+        }
+        
+        for(int i=pos;i<s.size();i++)
+        {
+            if(checkPalin(s,pos,i))
+            {
+                string str="";
+                for(int j=pos;j<=i;j++)
+                    str+=s[j];
+                ans.push_back(str);
+                rec(s,i+1);
+                ans.erase(ans.begin()+ans.size()-1);
+            }
+        }
+}
+    
+vector<vector<string>> partition(string s) {
+        
+        ans.clear();
+        answer.clear();
+        
+        if(s.size()==0)
+            return answer;
+        
+        rec(s,0);
+        return answer;
+}
+
+Time Complexity: O(n^n)
