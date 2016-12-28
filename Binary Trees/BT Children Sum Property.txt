@@ -1,0 +1,28 @@
+//check whether the given BT satisfies the children sum property ie. the node value equal to node->left->val + node->right->val
+
+/*
+
+Ask the interviewer what will happen in case of a leaf node?
+In fact a null or leaf node always obey the children sum property.
+
+*/
+
+bool isChildrenSum(TreeNode* root) {
+	
+	if(root==NULL || (root->left==NULL && root->right==NULL))
+		return 1;
+	
+	int ldata=0,rdata=0;
+	if(root->left)
+		ldata=root->left->data;
+	if(root->right)
+		rdata=root->right->data;
+	
+	if(root->val==(ldata+rdata) && isChildrenSum(root->left) && isChildrenSum(root->right))
+		return 1;
+	
+	return 0;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n) [ if stack space to be cosnidered ]

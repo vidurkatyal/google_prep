@@ -1,0 +1,83 @@
+//print all the edge nodes of a bt
+
+/* 
+
+During the interview focus on what they mean by edge nodes meaning what is meant by leftmost nodes, rightmost nodes?
+
+The algorithm is printing the leftmost nodes, then the leaf nodes and
+then printing the rightmost nodes in reverse order.
+
+Two corner cases arise:
+
+1: The last leftmost node would also be a leaf node so printing of nodes
+more than once needs to be taken into account which i have done using
+two boolean variables f and g.
+
+2: There can be a case as in skewed binary tree when the leftmost and the
+rightmost nodes are the same. 
+
+*/
+
+void boundary(TreeNode* root)
+{
+	if(root==NULL)
+		return;
+	
+	vector<int>l; //to keep track of leftmost nodes
+	vector<int>r; //to keep track of rightmost nodes
+	vector<int>leaf; //to keep track of leaf nodes
+
+	queue<pair<TreeNode*,int> >q;
+	q.push(make_pair(root,1));
+	int pL=-1;
+	TreeNode* pN=NULL;
+	while(!q.empty())
+	{
+		int f=0,g=0;
+		TreeNode* curr=q.front().first;
+		int level=q.front().second;
+		if(pL!=-1)
+		{
+			if(pL!=level)
+			{
+				if(l[l.begin()+l.size()-1]!=(curr->val))
+					r.push_back(curr->val);
+				l.push_back(pN->val);
+				f=1;
+			}
+		}
+		pL=level;
+		pN=curr;
+		
+		if(curr->left)
+		{
+			g=1;
+			q.push(make_pair(curr->left,level+1));
+		}
+		if(curr->right)
+		{
+			g=1;
+			q.push(make_pair(curr->right,level+1));
+		}
+
+		if(f==0 && g==0)
+			leaf.push_back(curr->val);
+	}
+	
+	//to print root node
+	cout<<root->val<<" ";
+	r.erase(r.begin()+r.size()-1);
+	
+	//printing the boundary traversal of bt
+	for(int i=0;i<l.size();i++)
+		cout<<l[i]<<" ";
+	for(int i=0;i<leaf.size();i++)
+		cout<<leaf[i]<<" ";
+	for(int i=r.size()-1;i>=0;i--)
+		cout<<r[i]<<" ";	
+	return;
+}
+
+
+Time Complexity: O(n)
+Auxillary Space: O(n)
