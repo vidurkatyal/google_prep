@@ -1,0 +1,77 @@
+//given a bt determine whether it is a bst or not ie. left node value is less than nodes value and right node value is greater
+
+
+/*
+
+When asked in an interview remember this problem is not only checking root->left
+and root->right but the max of the overall left subtree of root should have the value less
+than it and the min of the overall right subtree should have a value greater than it.
+
+*/
+
+
+SOLN 1-
+
+bool isBST(TreeNode* root) {
+
+	if(root==NULL)
+		return 1;
+	
+	if(root->left!=NULL && maximum(root->left)>root->val)
+		return 0;
+	if(root->right!=NULL && minimum(root->right)<root->val)
+		return 0;
+	
+	if(!isBST(root->left) || !isBST(root->right))
+		return 0;
+	
+	return 1;
+}
+
+where maximum() and minimum() are the functions implemented separately.
+
+Time Complexity: O(n^2)
+Auxillary Space: O(n^2) if stack space is to be taken into account
+
+
+SOLN 2-
+
+Do the inorder traversal of the bt and check whether it is sorted or not.
+To optimize the space instead of using the array use a variable storing prev
+and compare it with the current one.
+
+bool isBST(TreeNode* root) {
+
+	if(root==NULL)
+		return 1;
+	
+	int prev=-INT_MAX;
+	stack<TreeNode*>s;
+	do{
+		while(root)
+		{
+			s.push(root);
+			root=root->left;
+		}
+		
+		if(!s.empty())
+		{
+			TreeNode* curr=s.top();
+			s.pop();
+			if(curr->val<prev)
+				return 0;
+			
+			root=curr->right;
+		}
+	}while(!s.empty() || root!=NULL);
+	
+	return 1;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n) if stack space is to be considered
+
+		
+
+
+	

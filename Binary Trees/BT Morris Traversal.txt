@@ -1,0 +1,51 @@
+//print the nodes of a bt using morris traversal
+
+/*
+
+Morris traversal is based upon the concept of threaded
+bt where for each node links are created to its inorder
+successor and then the data is printed using that and changes
+are reverted to not have any affect on the original bt.
+
+*/
+
+void Morris(TreeNode* root) {
+	
+	if(root==NULL)
+		return;
+	
+	TreeNode *curr,*pre;
+	curr=root;
+	while(curr!=NULL)
+	{
+		if(curr->left!=NULL)
+		{
+			cout<<curr->val<<" ";
+			curr=curr->right;
+		}
+		else
+		{
+			pre=curr->left;
+			while(pre->right!=NULL && pre->right!=curr)
+				pre=pre->right;
+			
+			if(pre->right==NULL)
+			{
+				pre->right=curr;
+				curr=curr->left;
+			}
+			else
+			{
+				pre->right=NULL;  //for reverting the bt to original
+				cout<<curr->val<<" ";
+				curr=curr->right;	
+			}
+		}
+	}
+	return;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(1)	
+			
+

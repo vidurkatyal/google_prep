@@ -1,0 +1,50 @@
+//check whether the given sorted subsequnce exists in the given BST
+
+/*
+
+Ask the interviewer of what they mean by subsequnce whther
+its consecutive or not.
+
+*/
+
+SOLN 1:
+
+Use the inorder traversal and while doing the traversal
+maintain an index pointer to move along the subseq. which
+can help in optimising the space used.
+
+bool SS(TreeNode* root,vector<int> sub) {
+
+	if(root==NULL && sub.size()==0)
+		return 1;
+	if(root==NULL)
+		return 0;
+	if(sub.size()==0)
+		return 1;
+
+	int in=0;
+	stack<TreeNode*>s;
+	do{
+
+		while(root)
+		{
+			s.push(root);
+			root=root->left;
+		}
+		if(!s.empty())
+		{
+			TreeNode* curr=s.top();
+			s.pop();
+			if(curr->val==sub[in])
+				in++;
+			if(in==sub.size())
+				return 1;
+			
+			root=curr->right;
+		}
+	}while(!s.empty() || root!=NULL);
+	return 0;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n) if stack space is taken into account

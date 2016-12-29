@@ -1,0 +1,94 @@
+//find the kth smallest element in a bst
+
+/* 
+
+Ask the interviewer about if k is greater than n then 
+what to do and properly update your algo.
+
+*/
+
+
+SOLN 1-
+
+Use inorder traversal and correspondingly traverse 
+the bt and return the kth smallest value.
+
+int KSmallest(TreeNode* root,int k) {
+
+	if(root==NULL)
+		return -1;
+	
+	stack<TreeNode*>s;
+	do{
+	
+		while(root)
+		{
+			s.push(root);
+			root=root->left;
+		}
+		
+		if(!s.empty())	
+		{
+			TreeNode* curr=s.top();
+			s.pop();
+			k--;
+			if(k==0)
+				return curr->val;
+			
+			root=curr->right;
+		}
+	}while(!s.empty() || root!=NULL);
+	
+	return -1;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n) if stack space is to be considered.
+
+
+SOLN 2-
+
+Using morris traversal for solving the above problem in constant 
+auxillary space.
+
+int KSmallest(TreeNode* root,int k) {
+	
+	if(root==NULL)
+		return -1;
+	
+	TreeNode *curr,*pre;
+	curr=root;
+	while(curr!=NULL)
+	{
+		if(curr->left==NULL)
+		{
+			k--;
+			if(k==0)
+				return curr->val;
+			curr=curr->right;
+		}
+		else
+		{
+			pre=curr->left;
+			while(pre->right!=NULL && pre->right!=curr)
+				pre=pre->right;
+			if(pre->right==NULL)
+			{
+				pre->right=curr;
+				curr=curr->left;
+			}
+			else
+			{
+				pre->right=NULL;
+				k--;
+				if(k==0)
+					return curr->val;
+				curr=curr->right;
+			}
+		}
+	}
+	return -1;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(1)

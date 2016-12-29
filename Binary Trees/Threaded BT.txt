@@ -1,0 +1,22 @@
+We solved some examples of the various traversals 
+
+DFS: inorder,postorder,preorder
+BFS: level order
+
+In such traversals be it iterative or recursive some amount 
+of space is always allocated and thus a need of a variant was
+required. A threaded bt is a variant of bt which basically 
+makes each node of a bt to point to its inorder predecessor or
+successor of it.
+
+It can be of two types:
+
+Single: 
+
+In such a case the node is made to point either to its
+predecessor or sucessor.
+
+Double:
+
+In such a case the node is made to point to both ie. 
+the predecessor and the sucessor.
