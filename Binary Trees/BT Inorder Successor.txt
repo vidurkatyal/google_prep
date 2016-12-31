@@ -1,0 +1,63 @@
+//populate the inorder successor of each node in a bt
+
+/*
+
+Inorder successor of a node is the next node one would visit
+after the current node in the inorder traversal of the 
+given bt.
+
+Instead of the doing the normal inorder traversal do the
+reverse inorder traversal of the given bt and consequently
+mark the next of all the nodes in the bt.
+
+*/
+
+SOLN 1( Using static variable ):
+
+void inorderSuccessor(TreeNode* root) {
+
+	static TreeNode* next=NULL;
+	if(root==NULL)
+		return;
+	
+	inorderSuccessor(root->right);
+	
+	root->next=next;
+	next=root;
+	
+	inorderSuccessor(root->left);
+	return;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n) if stack space is to be considered.
+
+
+SOLN 2( Without static variable ):
+
+void inorderSuccessor(TreeNode* root) {
+
+	if(root==NULL)
+		return;
+
+	TreeNode* next=NULL;
+	inorderSuccessorUtil(root, &next);
+	return;
+}
+
+void inorderSuccessorUtil(TreeNode* root, TreeNode** next) {
+
+	if(root==NULL)
+		return;
+
+	inorderSuccessorUtil(root->right,next);
+	
+	root->next=(*next);
+	(*next)=root;
+	
+	inorderSuccessorUtil(root->left,next);
+	return;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

@@ -1,0 +1,44 @@
+//find the vertical sum in a bt
+
+/*
+
+Tell the interviewer what basically vertical sum means ie. if we 
+are at root moving left means moving -1 horizontal dist and moving
+right means moving +1 horizontal dist. 
+I will use a hashmap for storing sums along each horizontal line 
+and in the end print that.
+
+*/
+
+void printVerticalSum(TreeNode* root) {
+
+	if(root==NULL)
+		return;
+		
+	map<int,int>mymap;
+	int minL=INT_MAX,maxL=-INT_MAX;
+	queue<pair<TreeNode*,int> >q;
+	q.push(make_pair(root,1));
+	while(!q.empty())
+	{
+		TreeNode* curr=q.front().first;
+		int level=q.front().second;
+		q.pop();
+		
+		minL=min(minL,level);
+		maxL=max(maxL,level);
+		mymap[level]+=curr->val;
+		
+		if(curr->left)
+			q.push(make_pair(curr->left,level+1));
+		if(curr->right)
+			q.push(make_pair(curr->right,level+1));
+	}
+	for(int i=minL;i<=maxL;i++)
+		cout<<mymap[i]<<" ";
+	return;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)
+

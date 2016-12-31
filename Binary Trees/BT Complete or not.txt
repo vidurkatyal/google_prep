@@ -1,0 +1,56 @@
+//check whether the given bt is complete or not
+
+/*
+
+Tell the interviewer what complete bt is
+ie. it is a bt where each level is full
+except last which has nodes as left as possible.
+
+Soln would be to do a level order traversal and 
+check if a node is not full then all the future 
+occuring nodes have to be leaf nodes and the node
+should have a left child if it has a right child.
+
+*/
+
+bool isComplete(TreeNode* root) {
+
+	if(root==NULL)
+		return 1;
+
+	queue<pair<TreeNode*,int> >q;
+	q.push(make_pair(root,1));
+	int nf=0;
+	while(!q.empty())
+	{
+		int lc=0,rc=0;
+		TreeNode* curr=q.front().first;
+		int l=q.front().second;
+		q.pop();
+		
+		if(curr->left)
+		{
+			lc=1;
+			q.push(make_pair(curr->left,l+1));
+		}
+		if(curr->right)
+		{
+			rc=1;
+			q.push(make_pair(curr->right,l+1));
+		}
+		
+		if(nf==1 && ( lc==1 || rc==1 ))
+			return 0;
+
+		if(nf==0 && ( lc==0 || rc==0 ))
+		{
+			nf=1;
+			if(lc==0 && rc==1)
+				return 0;
+		}
+	}
+	return 1;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)	

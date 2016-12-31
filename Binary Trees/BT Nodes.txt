@@ -1,0 +1,42 @@
+//print the leftmost and the rightmost node in the given bt
+
+/*
+
+tell the interviewer what leftmost and rightmost nodes are
+they are basically the leaf nodes which lie on the last
+level. ie the first and last node of the last level.
+
+*/
+void printFL(TreeNode* root)
+{
+	if(root==NULL)
+		return;
+		
+	TreeNode *prev=NULL,*leftNode=NULL;
+	queue<pair<TreeNode*,int> >q;
+	q.push(make_pair(root,1));
+	int prevLevel=-1;
+	while(!q.empty())
+	{
+		int f=0;
+		TreeNode* curr=q.front().first;
+		int l=q.front().second;
+		q.pop();
+
+		if(prevLevel!=l)
+			leftNode=curr;
+		prev=curr;		
+		prevLevel=l;
+
+		if(curr->left)
+			q.push(make_pair(curr->left,l+1));
+		if(curr->right)
+			q.push(make_pair(curr->right,l+1));
+	}
+	cout<<leftNode->val<<" "<<prev->val;
+	return;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)		
+		

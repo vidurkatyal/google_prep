@@ -18,7 +18,7 @@ void Morris(TreeNode* root) {
 	curr=root;
 	while(curr!=NULL)
 	{
-		if(curr->left!=NULL)
+		if(curr->left==NULL)
 		{
 			cout<<curr->val<<" ";
 			curr=curr->right;
