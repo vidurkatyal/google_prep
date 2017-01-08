@@ -1,0 +1,28 @@
+//given a bt find a subtree rooted at a particular node which has exactly k leaves
+
+/*
+
+Do the postorder traversal of the given bt and then
+with that we have the info of the number of leaves in
+the left subtree and the right subtree which can  be
+used to determine whether the current node can be a root
+having exactly k leaves
+
+*/
+
+int KLeaves(node* root,int k) {
+
+	if(root==NULL)
+		return 0;
+	if(root->left==NULL && root->right==NULL)
+		return 1;
+	
+	int l=KLeaves(root->left,k) + KLeaves(root->right,k);
+	if(l==k)
+		cout<<root->val<<" ";
+	
+	return l;
+}
+
+Time Compelxity: O(n)
+Auxillary Space: O(n)

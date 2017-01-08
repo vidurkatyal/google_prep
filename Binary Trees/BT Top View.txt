@@ -1,0 +1,45 @@
+//print the top view of the given bt
+
+/*
+
+The idea is to traverse the bt in a level
+order fashion and when i am at node having
+level 'l' then if i move towards the left 
+the level changes l-1 and when i move towards
+the right the level changes l+1. The first node
+in each of the levels form the top view
+
+*/
+
+void topView(node* root) {
+
+	if(root==NULL)
+		return;
+	
+	queue<pair<node*,int> >q;
+	q.push(make_pair(root,1));
+	map<int,int>mymap;
+	map<int,int>check;
+	while(!q.empty())
+	{
+		node* curr=q.front().first;
+		int l=q.front().second;
+		q.pop();
+		
+		if(check[l]!=1)
+		{
+			mymap[l]=curr->val;
+			check[l]=1;
+		}
+		
+		if(curr->left)
+			q.push(make_pair(curr->left,l-1));
+		if(curr->right)
+			q.push(make_pair(curr->right,l+1));
+	}
+	//print the mymap ele forming the top view of the bt
+	return;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

@@ -1,0 +1,24 @@
+//given a boolean matrix, find a maximum square sub-matrix with all 1s
+
+SOLN 1-
+
+DP Soln
+
+int maxSquare(int mat[][m],int n,int m)
+{
+	int maxu=0;
+	for(int i=1;i<n;i++)
+	{
+		for(int j=1;j<m;j++)
+		{
+			if(mat[i][j]==1)
+				mat[i][j]=1+min(mat[i-1][j-1],min(mat[i-1][j],mat[i][j-1]));
+			else
+				mat[i][j]=0;
+			maxu=max(maxu,mat[i][j]);
+		}
+	}
+	return maxu;
+}
+
+Time Complexity: O(n*m)

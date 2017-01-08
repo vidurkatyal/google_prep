@@ -1,5 +1,7 @@
 // print the right view of a bt
 
+SOLN 1-
+
 vector<int> rightSideView(TreeNode* root) {
         
         vector<int>answer;
@@ -29,6 +31,35 @@ vector<int> rightSideView(TreeNode* root) {
         }
         answer.push_back(prevNode->val);
         return answer;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)
+
+
+SOLN 2-
+
+void rightViewUtil(node* root,int l,int *m) {
+
+	if(root==NULL)
+		return;
+	
+	if(*m<l)
+	{
+		*m=l;
+		cout<<root->val<<" ";
+	}
+	
+	rightViewUtil(root->right,l+1,m);
+	rightViewUtil(root->left,l+1,m);
+	return;
+}
+
+void rightView(node* root) {
+	
+	int m=0;
+	rightViewUtil(root,1,&m);
+	return;
 }
 
 Time Complexity: O(n)

@@ -1,0 +1,27 @@
+//given a n-ary tree convert it to its mirror equivalent
+
+/*
+
+The idea over here is to traverse the n-ary tree
+and then after traversing reverse the vector of child 
+it holds which will turn it ot its mirror equivalent.
+
+*/
+
+void mirror(node* root) {
+	
+	if(root==NULL)	
+		return;
+	
+	int n=root->child.size();
+	if(n<2)
+		return;
+	
+	for(int i=0;i<n;i++)
+		mirror(root->child[i]);
+	
+	reverse(root->child.begin(),root->child.end());
+	return;
+}
+
+Time Complexity: O(n)

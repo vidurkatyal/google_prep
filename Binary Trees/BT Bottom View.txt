@@ -1,0 +1,40 @@
+//print the bottom view of the bt
+
+/* 
+
+The idea is to do a level order traversal
+and while doing that use a hash map to 
+mark the nodes where when we are at a
+current node having level 'l' and move towards 
+the left we move l-1 and when we move towards
+the right we move l+1.
+
+*/
+
+void bottomView(node* root) {
+
+	if(root==NULL)
+		return;
+	
+	queue<pair<node*,int> >q;
+	q.push(make_pair(root,1));
+	map<int,int>mymap;
+	while(!q.empty())
+	{	
+		node* curr=q.front().first;
+		int l=q.front().second;
+		q.pop();
+	
+		mymap[l]=curr->val;
+		
+		if(curr->left)
+			q.push(make_pair(curr->left,l-1));
+		if(curr->right)
+			q.push(make_pair(curr->right,l+1));
+	}
+	//print the mymap ele
+	return;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

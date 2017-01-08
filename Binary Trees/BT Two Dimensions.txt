@@ -1,0 +1,33 @@
+//given a binary tree print it in two dimensions
+
+/*
+
+The idea over here is to do a reverse inorder traversal
+and at each time increase the count or space factor
+which will be used for printing the nodes.
+
+*/
+
+void print2DUtil(node* root,int space)
+{
+	if(root==NULL)
+		return;
+	space+=10;
+	
+	print2DUtil(root->right,space);
+	
+	printf("\n");
+	for(int i=10;i<space;i++)
+		printf(" ");
+	printf("%d\n",root->data);
+	
+	print2DUtil(root->left,space);
+	return;
+}
+
+void print2D(node* root) {
+	
+	print2DUtil(root,0);
+}
+
+Time Complexity: O(n)

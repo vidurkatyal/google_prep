@@ -1,0 +1,37 @@
+//given a bt find the max difference bw the node and the ancestor
+
+/*
+
+The idea is to traverse the bt in post order 
+fashion and while doing that keep track
+of the minimum value obtained so far and
+use that to subtracct it with the root value
+and return the max diff
+
+*/
+
+int maxDiff(node* root,int *res) {
+
+	if(root==NULL)
+		return INT_MAX;
+	
+	if(root->left==NULL && root->right==NULL)
+		return root->val;
+	
+	int val=min(maxDiff(root->left,res),
+		    maxDiff(root->right,res));
+	
+	*res=max(*res,root->val);
+	
+	return min(val,root->val);
+}
+
+int maxDifference(node* root) {
+
+	int res=INT_MIN;
+	int value=maxDiff(root,&res);
+	return res;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

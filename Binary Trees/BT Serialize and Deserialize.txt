@@ -1,0 +1,151 @@
+//serialize and deserialize the given bt
+
+SERIALIZATION:
+
+This refers to storing the the contents of 
+the bt into a file.
+
+CASES:
+
+1: BT is a BST
+
+What if the bt is a bst in that case use either
+of the 3 traversals ie. preorder, inorder or
+postorder to store the bt in the file.
+
+Code:
+
+void serialize(node* root,FILE *fp) {
+
+	if(root==NULL)
+		return;
+		
+	serialize(root->left,fp);
+	fprintf(fp, "%d ", root->val);
+	serialize(root->right,fp);
+	return;
+}
+
+2: BT is a Complete BT
+
+What if the BT is a complete BT. In that case
+storing the level order traversal is enough as 
+we know all level except the last will be
+completely filled and the last will as left as
+possible meaning with the level order traversal
+the bt can be identified.
+
+Code:
+
+void serialize(node* root,FILE *fp) {
+
+	if(root==NULL)
+		return;
+	
+	queue<node*>q;
+	q.push(root);
+	while(!q.empty())
+	{
+		node* curr=q.front();
+		q.pop();
+		
+		fprintf(fp, "%d ", curr->val);
+		
+		if(curr->left)
+			q.push(curr->left);
+		if(curr->right)
+			q.push(curr->right);
+	}
+	return;
+}
+
+3: BT is a Full BT
+
+What if the BT is a full BT. In that case simply 
+storing the preorder traversal of the bt along 
+with a bit telling whether the node is a leaf
+or not is enough.
+
+Code: 
+
+void serialize(node* root,FILE *fp) {
+
+	if(root==NULL)
+		return;
+	
+	//storing 0 with a node value if leaf node and 1 for internal node
+	fprintf(fp, "%d ", root->val);
+	if(root->left==NULL && root->right==NULL)	
+		fprintf(fp, "%d ", 0);
+	else
+		fprintf(fp, "%d ", 1);
+	
+	serialize(root->left,fp);
+	serialize(root->right,fp);
+	return;
+}
+
+4: Normal BT
+
+What if the bt is a normal one having none
+of the above properties. In that case we
+have two cases:
+
+a: storing the preorder and inorder traversals
+which will require twice the space of the bt.
+
+b: storing the preorder traversal with a marker
+for NULL nodes which can be used to construct
+the bt again. This will take 2*n keys but it 
+is still better than those cases when the keys
+have big items associated with them.
+
+We can optimize the approach by using an extra
+bit with every node which would determine whether
+its internal or external, this way we dont have
+to store two markers for a leaf node and as the 
+number of leaf nodes are more than the internal 
+nodes thus it makes sense.
+
+Code: 
+
+void serialize(node* root, FILE *fp) {
+
+	if(root==NULL)
+	{
+		fprintf(fp, "-1 ");
+		return;
+	}
+	
+	fprintf(fp, "%d ", root->val);
+	serialize(root->left,fp);
+	serialize(root->right,fp);
+	return;
+}
+
+
+DESERIALIZATION-
+
+This refers to the process of reading the contents
+of the file and then using them to form a new bt.
+
+void deserialize(node *&root, FILE *fp) {
+
+	int val;
+	if( !fscanf(fp, "%d ", &val) || val==-1)
+		return;
+	
+	root = newNode(val);
+	deserialize(root->left,fp);
+	deserialize(root->right,fp);
+	return;
+}
+
+
+	
+
+
+
+
+	
+	

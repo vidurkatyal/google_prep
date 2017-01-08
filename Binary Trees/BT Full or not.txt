@@ -1,0 +1,42 @@
+//determine whether the given bt is full or not
+
+/*
+
+A bt is full bt if it has nodes having
+0 or 2 child. That is every node either is
+a leaf node or has two children so that we
+can say that the bt is full bt.
+
+*/
+
+bool isFull(node* root) {
+
+	if(root==NULL)
+		return 1;
+	
+	queue<node*>q;
+	q.push(root);
+	while(!q.empty())
+	{
+		node* curr=q.front();
+		q.pop();
+	
+		int f=0;
+		if(curr->left)
+		{
+			f++;
+			q.push(curr->left);
+		}
+		if(curr->right)
+		{
+			f++;
+			q.push(curr->right);
+		}
+		if(f==1)
+			return 0;
+	}
+	return 1;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

@@ -1,0 +1,32 @@
+//given a tree where each node except leaf node represents operator "+,-,*,/". Leaf nodes are numeric values. Evalute such a bt.
+
+/*
+
+Approach is to do a postorder traversal of the given bt
+and then evaluate the total value obtained using it.
+
+*/
+
+int postfix(node* root) {
+	
+	if(root==NULL)
+		return 0;
+	
+	if(root->left==NULL && root->right==NULL)
+		return root->val;
+	
+	int l=postfix(root->left);
+	int r=postfix(root->right);
+	
+	if(root->val=='+')
+		return l+r;
+	else if(root->val=='-')
+		return l-r;
+	else if(root->val=='*')
+		return l*r;
+	else
+		return l/r;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

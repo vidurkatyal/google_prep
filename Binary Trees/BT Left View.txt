@@ -1,5 +1,7 @@
 //print the left view of the given bt
 
+SOLN 1-
+
 vector<int> leftSideView(TreeNode* root) {
         
         vector<int>answer;
@@ -29,3 +31,38 @@ vector<int> leftSideView(TreeNode* root) {
 
 Time Complexity: O(n)
 Auxillary Space: O(n)
+
+SOLN 2-
+
+void leftViewUtil(node* root,int l,int *m) {
+
+	if(root==NULL)
+		return;
+	
+	if(*m<l)
+	{
+		*m=l;
+		cout<<root->val<<" ";
+	}
+
+	leftViewUtil(root->left,l+1,m);
+	leftViewUtil(root->right,l+1,m);
+	return;
+}
+
+void leftView(node* root) {
+
+	int m=0;
+	leftViewUtil(root,1,&m);
+	return;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)
+
+WE PREFER DFS APPROACH OVER BFS ONE AS IN CASE OF BFS THE SPACE CAN BE 
+STORING ALL THE NODES ALONG THE LEVEL WHICH CAN BE WORSE IN CASE THE
+BT IS WIDE ENOUGH.	
+
+
+

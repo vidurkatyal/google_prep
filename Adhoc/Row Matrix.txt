@@ -1,0 +1,46 @@
+//given a row sorted boolean 2D matrix, find the row with max number of 1s
+
+SOLN 1-
+
+Simple traverse the matrix and find the row with max 1s
+
+Time Complexity: O(n*m)
+
+
+SOLN 2-
+
+Binary search each row and find the row with max 1s
+
+Time Complexity: O(nlogm)
+
+
+SOLN 3-
+
+Get the index of first one in the first row and then
+traverse all the rows and then update the first occurance
+of 1 in that row if it is the row with max 1s
+
+int rowWithMax1s(int mat[R][C])
+{
+	int maxRow=0,j=C-1;
+	for(int i=0;i<C;i++)
+	{
+		if(mat[0][i]==1)
+		{
+			j=i;
+			break;
+		}
+	}
+
+	for(int i=1;i<R;i++)
+	{
+		while(j>=0 && mat[i][j]==1)
+		{
+			j--;
+			maxRow=i;	
+		}
+	}
+	return maxRow;
+}
+
+Time Complexity: O(n+m) 

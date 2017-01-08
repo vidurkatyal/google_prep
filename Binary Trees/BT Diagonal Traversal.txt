@@ -1,0 +1,38 @@
+//print the diagonal traversal of the given bt
+
+/*
+
+The idea is for printing the diagonal traversal of
+the given bt we carry out the level order traversal
+and while doing it we move +1 level for left child
+while +0 distance for right child.
+
+*/
+
+void diagonalTraversal(node* root)
+{
+	if(root==NULL)
+		return;
+	
+	map<int,vector<int> >mymap;
+	queue<pair<node*,int> >q;
+	q.push(make_pair(root,1));
+	while(!q.empty())
+	{
+		node* curr=q.front().first;
+		int l=q.front().second;
+		q.pop();
+		
+		mymap[l].push_back(curr->val);
+		
+		if(curr->left)
+			q.push(make_pair(curr->left,l+1));
+		if(curr->right)
+			q.push(make_pair(curr->right,l));
+	}
+	//print mymap elements
+	return;
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

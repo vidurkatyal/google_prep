@@ -1,0 +1,63 @@
+//find the max sum you can get from the given bt given a constraint that consecutive nodes cannot be taken
+
+/*
+
+Naive soln is that we at each step if
+we take the node we call recursion on its grandchildren
+otherwise we call recursion on their child
+As this calls recursion again and again we can memoize the 
+result and store it to optimize the time taken.
+
+*/
+
+SOLN 1 (Recursion)-
+
+int getSum(node* root) {
+
+	if(root==NULL)	
+		return 0;
+
+	int inclu=root->val,exclu=0;
+	
+	if(root->left)
+		inclu+=getSum(root->left->left) + getSum(root->left->right);
+	if(root->right)
+		inclu+=getSum(root->right->left) + getSum(root->right->right);	
+	exclu+=getSum(root->left) + getSum(root->right);
+
+	return max(inclu,exclu);
+}
+
+SOLN 2 (Memoized)-
+
+map<node*,int>mymap;
+int getSum(node* root) {
+	
+	if(root==NULL)
+		return 0;	
+	if(mymap[root])
+		return mymap[root];
+	
+	int inclu=root->val,exclu=0;
+	
+	if(root->left)
+		inclu+=getSum(root->left->left) + getSum(root->left->right);
+	if(root->right)
+		inclu+=getSum(root->right->left) + getSum(root->right->right);
+	exclu+=getSum(root->left) + getSum(root->right);
+	mymap[root]=max(inclu,exclu);
+
+	return mymap[root];
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)
+
+
+
+
+
+
+
+
+	

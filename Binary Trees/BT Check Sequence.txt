@@ -1,0 +1,25 @@
+//given a sequence, find whether a root to leaf path is as the sequence given or not
+
+SOLN 1:
+
+Generate all the root to leaf paths and then check which 
+one equals to the given sequence.
+
+SOLN 2:
+
+bool isPath(node* root, int arr[], int n, int ind) {
+
+	if(root==NULL)
+		return 0;
+
+	if(ind<n && (root->left==NULL && root->right==NULL) &&
+		(root->val==arr[ind]) && (ind==(n-1)))
+		return 1;
+	
+	return ((ind<n) && (root->val==arr[ind]) && 
+		(isPath(root->left,arr,n,ind+1) ||
+		 isPath(root->right,arr,n,ind+1)));
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

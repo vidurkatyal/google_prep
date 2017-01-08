@@ -1,0 +1,26 @@
+//given a image turn it by 90
+
+/*
+
+Imagine an image as a 2d matrix and when you
+turn it by 90 degrees the following happens:
+
+first row -> last col
+second row -> second last col 
+and so on..
+
+*/
+
+void rotate(int mat[][m],int n,int m)
+{
+	int dest[m][n];
+	int st=n-1,en=0;
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<m;j++)
+			dest[j][st]=mat[i][j];
+		st--;
+	}
+}
+
+Time Complexity: O(n*m)
