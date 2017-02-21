@@ -1,0 +1,34 @@
+//construct a special full binary tree from the preorder and postorder traversals
+
+
+Code:
+
+node* btutil(int pre[], int post[], int *preIndex, int low, int high, int si)
+{
+	if((*preIndex)>=si || low>high)
+		return NULL;
+	
+	node* root = newNode(pre[*preIndex]);
+	*preIndex = *preIndex+1;
+	
+	int i;
+	for(int i=low;i<=high;i++)
+	{
+		if(post[i]==pre[*preIndex])
+			break;
+	}
+	
+	if(i<=high)
+	{
+		root->left = btUtil(pre,post,preIndex,low,i,si);
+		root->right = btUti(pre,post,preIndex,i+1,high,si);
+	}
+	return root;
+}
+
+node* bt(int pre[], int post[], int si)
+{
+	int preIndex=0;
+	return btUtil(pre,post,&preIndex,0,si-1,si);
+}
+Time Complexity: O(n^2)

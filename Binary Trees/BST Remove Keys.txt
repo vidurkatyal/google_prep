@@ -1,0 +1,28 @@
+//given a bst remove keys which lie outside the range
+
+
+Code:
+
+void postorder(node* root, int low, int high)
+{
+	if(root==NULL)
+		return;
+	
+	root->left = postorder(root->left, low, high);
+	root->right = postorder(root->right, low, high);
+	
+	if(root->key<low)
+	{
+		node* root1=root->right;
+		delete root;
+		return root1;
+	}
+	else if(root->key>high)
+	{
+		node* root1=root->left;
+		delete root;
+		return root1;
+	}
+	return root;
+}
+Time Complexity: O(h)

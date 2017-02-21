@@ -1,0 +1,33 @@
+//given the inorder and preorder traversal of a bt print the postorder traversal of the given bt
+
+SOLN 1-
+
+Simple soln is to form or construct the bt from
+the inorder and preorder traversal and then perform
+the postorder traversal on the given tree.
+
+SOLN 2-
+
+Without constructing the tree we can use the fact
+that the first element in the preorder traversal
+is always the root and find that element in the 
+inorder array as we will get to know that left of it
+it will have elements of left subtree and right of it 
+it will elements of right subtree.
+
+
+void postorder(int in[], int pre[], int n)
+{
+	
+	int root=search(in,pre[0],n);
+	
+	if(root!=0)
+		postorder(in,pre+1,root);
+	if(root!=(n-1))
+		postorder(in+rott+1,pre+root+1,n-root-1);
+	
+	cout<<pre[0]<<" ";
+	return;
+}
+
+Time Complexity: O(n^2)

@@ -1,0 +1,25 @@
+//given a bst find the minimum value in it.
+
+/*
+
+The idea is to traverse the bst visiting
+its left subtree for each node until we
+reach a NULL. The last visited node along 
+the left subtree is the minimum value of
+the given bst.
+
+*/
+
+
+Code:
+
+int minBST(node* root)
+{
+	node* curr=root;
+	
+	while(curr->left!=NULL)
+		curr=curr->left;
+	return curr->val;
+}
+Time Complexity: O(h)
+Auxillary Space: O(h)

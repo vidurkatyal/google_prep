@@ -1,0 +1,45 @@
+//given m and n find the number of paths to reach m,n from 1,1 given a constraint that you can move only right or down
+
+SOLN 1-
+
+Recursive
+
+int rec(int n,int m)
+{
+	if(n==1 && m==1)
+		return 1;
+	
+	return rec(n-1,m) + rec(n,m-1);
+}
+
+Time Complexity: (2^n)
+
+
+SOLN 2-
+
+DP SOLN
+
+int dp(int n,int m)
+{
+	int cnt[n+1][m+1];
+	
+	for(int i=0;i<m;i++)
+		cnt[0][i]=1;
+	for(int i=0;i<n;i++)
+		cnt[i][0]=1;
+	
+	for(int i=1;i<n;i++)
+	{
+		for(int j=1;j<m;j++)
+			cnt[i][j]=cnt[i-1][j]+cnt[i][j-1];
+	}
+	
+	return cnt[n-1][m-1];
+}
+
+Time Complexity: O(n*m)
+Auxillary Space: O(n*m)
+
+SOLN 3:
+
+Ans is (m+n-2)C(n-1)

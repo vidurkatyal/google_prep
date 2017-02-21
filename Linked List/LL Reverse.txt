@@ -1,0 +1,65 @@
+//reverse a linked list
+
+
+SOLN 1-
+
+First thing is we can use an auxillary array
+and store the values in it. Traverse the linked
+list again and use the values popped from the
+stack as the values of node.
+
+Time Complexity: O(n)
+Auxillary Space: O(n)
+
+
+SOLN 2-
+
+Code:
+
+void reverse(node** head)
+{
+	node* prev = NULL;
+	node* curr = *head;
+	node* next;
+	while(curr!=NULL)
+	{
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+	*head = prev;
+}
+Time Complexity: O(n)
+Auxillary Space: O(1)
+
+
+SOLN 3:
+
+Code:
+
+void reverse(node** head)
+{
+	if(!head)
+		return;
+	
+	reverseUtil(*head,NULL,head);
+	return;
+}
+
+void reverseUtil(node* curr, node* prev, node** head)
+{
+	if(!curr->next)
+	{
+		*head = curr;
+		curr->next = prev;
+		return;
+	}
+	
+	node* next = curr->next;
+	curr->next = prev;
+	reverseUtil(next , curr , head);
+	return;
+}
+Time Complexity: O(n)
+Auxillary Space: O(1)

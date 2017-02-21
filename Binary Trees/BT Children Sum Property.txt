@@ -7,6 +7,7 @@ In fact a null or leaf node always obey the children sum property.
 
 */
 
+
 bool isChildrenSum(TreeNode* root) {
 	
 	if(root==NULL || (root->left==NULL && root->right==NULL))
@@ -20,9 +21,7 @@ bool isChildrenSum(TreeNode* root) {
 	
 	if(root->val==(ldata+rdata) && isChildrenSum(root->left) && isChildrenSum(root->right))
 		return 1;
-	
 	return 0;
 }
-
 Time Complexity: O(n)
 Auxillary Space: O(n) [ if stack space to be cosnidered ]

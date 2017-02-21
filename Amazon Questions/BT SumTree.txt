@@ -1,0 +1,15 @@
+//convert a bt to a sum tree
+
+
+Code:
+
+int sumTree(node* root)
+{
+	if(root==NULL)
+		return 0;
+	
+	int val = root->val;
+	root->val = sumTree(root->left) + sumTree(root->right);
+	return (root->val + val);
+}
+Time Complexity: O(n)

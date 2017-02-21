@@ -1,0 +1,67 @@
+//given two linked list. Find their intersection if it occurs
+
+
+SOLN 1- 
+	
+We can traverse the first linked list and maintain a 
+hash for all those node.After traversing the second linked 
+list if the linked list has a node whose address was already
+visited in first linked list then there is an intersection
+otherwise not.
+
+Time Complexity: o(n)
+Auxillary Space: O(n)
+
+
+SOLN 2-
+
+First find the length of the two linked list. Then 
+traverse that linked list with greater nodes to reach
+a point where the number of nodes left in both the
+lists are same. Now one by one compare the nodes and
+check whether they are same or not if intersection
+occurs.
+
+Code:
+
+int getCount(node* head)
+{
+	node* curr = head;
+	int cnt=0;
+	while(curr!=NULL)	
+	{
+		cnt++;
+		curr = curr->next;
+	}
+	return cnt;
+}
+
+int getIntUtil(int d, node* h1, node* h2)
+{
+	
+	node *curr1 = h1,*curr2=h2;
+	for(int i=0;i<d;i++)
+		curr1 = curr1->next;
+	
+	while(curr1!=NULL && curr2!=NULL)
+	{
+		if(curr1==curr2)
+			return curr1->val;	
+		curr1 = curr1->next;
+		curr2 = curr2->next;
+	}
+	return -1;
+}
+
+int getInt(node* h1,node* h2)
+{
+	int c1 = getCount(h1);
+	int c2 = getCount(h2);
+	
+	if(c1>c2)
+		return getIntUtil(c1-c2,h1,h2);
+	else
+		return getIntUtil(c2-c1,h2,h1);
+}
+Time Complexity: O(n)
+Auxillary Space: O(1)

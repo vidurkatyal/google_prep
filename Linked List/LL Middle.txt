@@ -1,0 +1,67 @@
+//find the middle of the linked list
+
+
+SOLN 1-
+
+Traverse the linked list and get the 
+length of it and store it in variable len.
+Now traverse the linked list again until
+the count reaches len/2 and return that.
+
+
+SOLN 2-
+
+Use two pointers one moving by two and other
+moving by one until the fast pointer reaches
+NULL. The middle of the linked list would
+be the value of the slow pointer.
+
+
+Code:
+
+int middle(node* head)
+{
+	if(head==NULL)
+		return -1;
+	
+	node* slow_ptr = head;
+	node* fast_ptr = head;
+	
+	while(fast_ptr!=NULL && fast_ptr->next!=NULL)
+	{
+		fast_ptr = fast_ptr->next->next;
+		slow_ptr = slow_ptr->next;
+	}
+	return slow_ptr->val;
+}
+Time Complexity: O(n)
+Auxillary Space: O(1)
+
+
+SOLN 3-
+
+Traverse the linked list and update the 
+pointer only when count is odd. In this 
+way we get the value of the middle of the
+linked list.
+
+Code:
+
+int middle(node* head)
+{
+	if(head==NULL)
+		return -1;
+
+	int cnt=0;
+	node* curr = head;
+	while(head!=NULL)
+	{
+		if(cnt&1)
+			curr = curr->next;
+		cnt++;
+		head = head->next;
+	}
+	return curr->val;
+}
+Time Complexity: O(n)
+Auxillary Space: O(1)

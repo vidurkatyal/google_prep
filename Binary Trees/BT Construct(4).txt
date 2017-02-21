@@ -1,0 +1,21 @@
+//construct a special bt from the inorder traversal
+
+
+Code:
+
+node* bt(int in[], int low, int high)
+{
+	if(low>high)
+		return NULL;
+	
+	int i = maximum(in,low,end);
+	node* root = newnode(in[i]);
+	
+	if(low==high)
+		return root;
+	
+	root->left = bt(in,low,i-1);
+	root->right = bt(in,i+1,high);
+	return root;
+}
+Time Complexity: O(n^2)

@@ -1,0 +1,67 @@
+//given a preorder traversal construct bst from it
+
+
+SOLN 1-
+
+node* bstUtil(int pre[], int *preIndex, int low, int high, int si)
+{
+	if((*preIndex)>=si || low>high)
+		return NULL;
+	
+	node* root = newNode(pre[*preIndex]);
+	*preIndex = *preIndex+1;
+	
+	if(low==high)
+		return root;
+	
+	int i;
+	for(i=low;i<=high;i++)
+	{
+		if(pre[i]>root->key)
+			break;
+	}
+	
+	root->left = bstUtil(pre,preIndex,*preIndex,i-1,si);
+	root->right = bstUtil(pre,preIndex,i,high,si);
+	
+	return root;
+}
+
+node* bst(int pre[], int si)
+{
+	int preIndex=0;
+	return bstUtil(pre, &preIndex, 0, si-1, si);
+}
+Time Complexity: O(n^2)
+Auxillary Space: O(n)
+
+
+SOLN 2-
+
+node* bstUtil(int pre[], int *preIndex, int key, int minu, int maxu, int si)
+{
+	if((*preIndex)>=si)
+		return NULL;
+	
+	node* root=NULL;
+	if(key>minu && key<maxu)
+	{
+		root = newNode(key);
+		*preIndex = *preIndex + 1;
+		
+		if((*preIndex)<si)		
+		{
+			root->left = bstUtil(pre, preIndex, pre[*preIndex], minu, key, si);
+			root->right = bstUtil(pre, preIndex, pre[*preIndex], key, maxu, si);		
+		}
+	}
+	return root;
+}
+
+node* bst(int pre[], int si)
+{
+	int preIndex=0;
+	return bstUtil(pre,&preIndex,pre[0],INT_MIN,INT_MAX,si);
+}
+Time Complexity: O(n)
+Auxillary Space: O(n) 

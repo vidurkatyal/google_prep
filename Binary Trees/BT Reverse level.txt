@@ -1,0 +1,37 @@
+//reverse alternate levels of a perfect binary tree
+
+SOLN 1-
+
+The first idea that comes to mind is we do a level 
+order traversal of the given bt and when the level
+is odd we reverse it and store the nodes in a vector
+and traverse the tree again and update the value of
+node along with it.
+
+SOLN 2 ( one traversal )-
+
+Use a preorder traversal as shown as follows:
+
+void preorderUtil(node* root1,node* root2,int l)
+{
+	if(root1==NULL || root2==NULL)	
+		return;
+	if(l%2==0)
+	{
+		int temp=root1->val;
+		root1->val=root2->val;
+		root2->val=temp;
+	}
+	
+	preorderUtil(root1->left,root2->right,l+1);
+	preorderUtil(root1->right,root2->left,l+1);
+	return;
+}
+
+void preorder(node* root)
+{
+	preorderUtil(root->left,root->right,0);
+	return;
+}
+
+Time Complexity: O(n)

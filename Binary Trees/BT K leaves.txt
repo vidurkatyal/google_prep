@@ -10,6 +10,7 @@ having exactly k leaves
 
 */
 
+
 int KLeaves(node* root,int k) {
 
 	if(root==NULL)
@@ -23,6 +24,5 @@ int KLeaves(node* root,int k) {
 	
 	return l;
 }
-
 Time Compelxity: O(n)
 Auxillary Space: O(n)

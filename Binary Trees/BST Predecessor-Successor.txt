@@ -1,0 +1,43 @@
+//given a bst find the inorder predessor and successor of the given key in it
+
+
+Code:
+
+void inorder(node* root, node *&pre, node *&suc, int key)
+{
+	if(root==NULL)
+		return;
+		
+	if(root->key==key)
+	{
+		if(root->left!=NULL)
+		{
+			node* temp=root->left;
+			while(temp->right)
+				temp=temp->right;
+			pre=temp;
+		}
+		
+		if(root->right!=NULL)
+		{
+			node* temp=root->right;
+			while(temp->left)
+				temp=temp->left;
+			suc-temp;
+		}
+		return;
+	}
+	
+	if(root->key>key)
+	{
+		suc=root;
+		inorder(root->left,pre,suc,key);
+	}
+	else
+	{	
+		pre=root;
+		inorder(root->right,pre,suc,key);
+	}
+	return;
+}
+Time Complexity: O(h)

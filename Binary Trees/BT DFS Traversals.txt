@@ -1,4 +1,90 @@
-//print the postorder traversal of the given bt
+//preorder traversal ( root - left - right )
+
+Recursive soln
+
+void preorder(TreeNode* root)
+{
+	if(root==NULL)
+		return;
+	cout<<root->val<<" ";
+	preorder(root->left);
+	preorder(root->right);
+	return;
+}
+
+
+Iterative soln
+
+void preorder(TreeNode* root)
+{
+	if(root==NULL)	
+		return;
+	stack<TreeNode* >s;
+	s.push(root);
+	while(!s.empty())
+	{
+		TreeNode* curr=s.top();
+		cout<<curr->val<<" ";
+		s.pop();
+		
+		// pushing right before left so that left can be processed first
+		if(curr->right)
+			s.push(curr->right);
+		if(curr->left)
+			s.push(curr->left);
+	}
+}
+Time Complexity: O(n)
+
+
+//inorder traversal ( left - root - right )
+
+Recursive soln
+
+void inorder(TreeNode* root)
+{
+	if(root==NULL)
+		return;
+	inorder(root->left);
+	cout<<root->val<<" ";
+	inorder(root->right);
+	return;
+}
+
+
+Iterative soln
+
+vector<int> inorderTraversal(TreeNode* root) {
+        
+        vector<int>answer;
+        if(root==NULL)
+            return answer;
+            
+        stack<TreeNode* >s;
+        TreeNode* curr=root;
+        do{
+            
+            while(curr!=NULL)
+            {
+                s.push(curr);
+                curr=curr->left;
+            }
+            
+            if(!s.empty())
+            {
+                TreeNode* node=s.top();
+                answer.push_back(node->val);
+                s.pop();
+                curr=node->right;
+            }
+        }while(!s.empty() || curr!=NULL);
+        
+	return answer;
+}
+Time Complexity: O(n)
+
+
+//postorder traversal ( left - right - root )
 
 Recursive soln
 
@@ -11,6 +97,7 @@ void postorder(TreeNode* root)
 	cout<<root->val<<" ";
 	return;
 }
+
 
 Iterative soln ( Using two stacks )
 
@@ -34,7 +121,6 @@ void postorder(TreeNode* root)
 		if(curr->right)
 			s1.push(curr->right);
 	}
-	
 	//printing the postorder traversal of the bt
 	while(!s2.empty())
 	{
@@ -43,6 +129,7 @@ void postorder(TreeNode* root)
 		s2.pop();
 	}
 }
+
 
 Iterative soln ( using one stack )
 
@@ -96,5 +183,4 @@ void postorderTraversal(TreeNode* root) {
         
         return answer;
 }
-
 Time Complexity: O(n)

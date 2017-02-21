@@ -1,0 +1,49 @@
+//given a 2d matrix which column and row wise sorted, print the elements in sorted order
+
+SOLN 1-
+
+Young tableau method which extracts minimum from 
+the matrix in O(n) time.
+
+void youngify(int mat[][N], int i, int j)
+{
+	int downval= (i+1<N)? mat[i+1][j]: INF;
+	int rightval= (j+1<N)? ,at[i][j+1]: INF;
+	
+	if(downval==INF && rightval==INF)
+		return;
+	
+	if(downval<rightval)
+	{
+		mat[i][j]=downval;
+		mat[i+1][j]=INF;
+		youngify(mat,i+1,j);
+	}
+	else
+	{
+		mat[i][j]=rightval;
+		mat[i][j+1]=INF;
+		youngify(mat,i,j+1);
+	}
+}
+
+int extractMin(int mat[][N])
+{
+	int ret=mat[0][0];
+	mat[0][0]=INF;
+	youngify(mat,0,0);
+	return ret;
+}
+
+void printSorted(int mat[][N])
+{
+	for(int i=0;i<N*N;i++)
+		cout<<extractMin(mat)<<" ";
+}
+
+Time Complexity: O(n^3)
+
+
+SOLN 2-
+
+Using heap soln

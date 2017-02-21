@@ -1,0 +1,64 @@
+//find the diameter of the given bt
+
+/*
+
+The diameter of the given bt is the
+maximum distance bw to leaf nodes of
+a bt.
+
+The diameter of the bt is the largest
+of the three cases:
+	diameter of left subtree
+	diameter of right subtree
+	path passing along the root
+
+*/
+
+
+SOLN 1-
+
+int height(node root)
+{
+	if(root==NULL)
+		return 0;
+	return 1 + max(height(root->left) , height(root->right));
+}
+
+int diameter(node* root)
+{
+	if(root==NULL)
+		return 0;
+	
+	int lh=height(root->left);
+	int rh=height(root->right);
+	
+	int ld=diameter(root->left);
+	int rd=diameter(root->right);
+	
+	return max( lh+rh+1, max(ld,rd) );
+}
+Time Complexity: O(n^2)
+Auxillary Space: O(n^2)
+
+
+SOLN 2-
+
+int diameter(node* root, int *h)
+{
+	
+	int lh=0,rh=0,ld=0,rd=0;
+	
+	if(root==NULL)
+	{
+		*h=0;
+		return 0;
+	}
+	
+	ld=diameter(root->left,&lh);
+	rd=diameter(root->right,&rh);
+	
+	*h = max(lh,rh)+1;
+	return max(lh+rh+1, max(ld,rd));
+}
+Time Complexity: O(n)
+Auxillary Space: O(n)

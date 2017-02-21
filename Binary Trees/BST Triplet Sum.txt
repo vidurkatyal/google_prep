@@ -1,0 +1,31 @@
+//find a triplet sum is equal to 0 or not in a bst 
+
+
+SOLN 1-
+
+Consider every triplet and check whether the 
+required sum is zero or not.
+
+Time Compleixty: O(n^3)
+Auxillary Space: O(1)
+
+
+SOLN 2-
+
+Do the inorder traversal of the given bst and
+use it to find a triplet has a sum equal to
+zero or not.
+
+Time Compleixty: O(n^2)
+Auxillary Space: O(n)
+
+
+SOLN 3-
+
+Convert the bst to a DLL and use it to  find
+a triplet with sum equla to zero.
+
+Read it later.
+
+Time Compleixty: O(n^2)
+Auxillary Space: O(logn)

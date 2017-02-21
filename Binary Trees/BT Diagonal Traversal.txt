@@ -9,6 +9,9 @@ while +0 distance for right child.
 
 */
 
+
+Code:
+
 void diagonalTraversal(node* root)
 {
 	if(root==NULL)
@@ -33,6 +36,5 @@ void diagonalTraversal(node* root)
 	//print mymap elements
 	return;
 }
-
 Time Complexity: O(n)
 Auxillary Space: O(n)

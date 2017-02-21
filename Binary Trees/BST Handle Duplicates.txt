@@ -1,0 +1,91 @@
+//handling duplicates in bst
+
+/*
+
+One soln is to allow some keys on the right
+side or left side. 
+
+A better soln to this is to augment the given
+bst such that each node has a count associated
+with it. This approach is better as we are ensuring
+the height is minimized thus with fewer comparisons
+we can do the search insert operations. Also certain
+balancing techniques used for avl or rb trees this is
+better soln to be used.
+
+*/
+
+
+Code:
+
+struct node{
+
+	int val;
+	int count;
+	node* left;
+	node* right;
+};
+
+node* insert(node* root, int val)
+{
+	if(root==NULL)
+		return newNode(key);
+	
+	if(val==root->key)
+	{
+		(root->count)++;
+		return root;
+	}
+	if(val<root->key)
+		root->left = insert(root->left,val);
+	else	
+		root->right = insert(root->right,val);
+	
+	return root;
+}
+
+node* minValueNode(node* root)
+{
+	node* curr=root;
+	while(curr->left!=NULL)
+		curr=curr->left;
+	return curr;
+}
+
+node* deleteNode(node* root, int key)
+{
+	if(root==NULL)
+		return root;
+	
+	if(key<root->val)
+		root->left = deleteNode(root->left,key);
+	else if(key>root->val)
+		root->right = deleteNode(root->right,key);
+	else
+	{
+		if(root->val==key)
+		{
+			(root->count)--;
+			return root;
+		}
+		else if(root->left==NULL)
+		{
+			node* temp = root->right;
+			free(root);
+			return temp;
+		}
+		else if(root->right==NULL)
+		{
+			node* temp = root->left;
+			free(root);
+			return temp;
+		}
+		
+		node* temp = minValueNode(root->right);
+		root->val = temp->val;
+		root->right = deleteNode(root->right, temp->val);
+		
+	}
+	return root;
+}
+Time Complexity: O(h) 

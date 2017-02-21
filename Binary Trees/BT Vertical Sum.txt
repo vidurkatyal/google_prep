@@ -10,6 +10,7 @@ and in the end print that.
 
 */
 
+
 void printVerticalSum(TreeNode* root) {
 
 	if(root==NULL)
@@ -38,7 +39,5 @@ void printVerticalSum(TreeNode* root) {
 		cout<<mymap[i]<<" ";
 	return;
 }
-
 Time Complexity: O(n)
 Auxillary Space: O(n)
-

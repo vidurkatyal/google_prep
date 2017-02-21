@@ -13,6 +13,7 @@ should have a left child if it has a right child.
 
 */
 
+
 bool isComplete(TreeNode* root) {
 
 	if(root==NULL)
@@ -51,6 +52,5 @@ bool isComplete(TreeNode* root) {
 	}
 	return 1;
 }
-
 Time Complexity: O(n)
 Auxillary Space: O(n)	

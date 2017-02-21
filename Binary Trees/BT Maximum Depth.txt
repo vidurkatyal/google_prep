@@ -1,8 +1,40 @@
 //find the maximum depth of a binary tree
 
+
+Recursive Soln: 
+
 int maxDepth(TreeNode* root)
 {
 	if(root==NULL)
 		return 0;
 	return (1 + max(maxDepth(root->left),maxDepth(root->right)));
 }
+
+
+Iterative Soln:
+
+int maxDepth(node* root)
+{
+	if(root==NULL)
+		return 0;
+	
+	queue<pair<node*,int> >q;
+	q.push(make_pair(root,1));
+	int maxL=1;
+	while(!q.empty())
+	{
+		node* curr=q.front().first;
+		int l=q.front().second;
+		q.pop();
+	
+		maxL=max(maxL,l);
+	
+		if(curr->left)
+			q.push(make_pair(curr->left,l+1));
+		if(curr->right)
+			q.push(make_pair(curr->right,l+1));
+	}
+	return maxL;
+}
+Time Complexity: O(n)
+Auxillary Space: O(n)

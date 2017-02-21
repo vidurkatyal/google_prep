@@ -1,0 +1,66 @@
+//find the nth node of a linked list
+
+
+Code:
+
+int nthNode(node* head, int n)
+{
+	int cnt=0;
+	node* curr = head;
+	while(curr!=NULL)
+	{
+		if(cnt==n)
+			return curr->val;
+		cnt++;
+		curr = curr->next;
+	}
+	return -1;
+}
+Time Complexity: O(n)
+Auxillary Space: O(1)
+
+
+//find the nth node from the end of the linked list
+
+
+Soln 1-
+
+Traverse the linked list and find the length.
+Then traverse the linked list where the nth 
+node from the end will be (len-n+1)th node.
+
+
+SOLN 2-
+
+Use two pointers and traverse one till n nodes.
+Now traverse both until one reaches NULL. The
+leftover pointer is the nth node from the end
+of the linked list.
+
+Code:
+
+int nthNode(node* head, int n)
+{
+	if(head==NULL)
+		return -1;
+	
+	node *main_ptr=head,*curr_ptr=head;
+	int cnt=0;
+	while(cnt<n)
+	{
+		if(curr_ptr==NULL)
+			return -1;
+
+		cnt++;
+		curr_ptr = curr_ptr->next;
+	}
+	
+	while(curr_ptr!=NULL)
+	{
+		main_ptr = main_ptr->next;
+		curr_ptr = curr_ptr->next;
+	}
+	return main_ptr->val;
+}
+Time Complexity: O(n)
+Auxillary Space: O(1)

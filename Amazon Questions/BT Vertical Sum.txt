@@ -1,0 +1,99 @@
+//find the vertical sum in a bt
+
+/*
+
+Tell the interviewer what basically vertical sum means ie. if we 
+are at root moving left means moving -1 horizontal dist and moving
+right means moving +1 horizontal dist. 
+I will use a hashmap for storing sums along each horizontal line 
+and in the end print that.
+
+*/
+
+
+SOLN 1(Hash Based)-
+
+void printVerticalSum(TreeNode* root) {
+
+	if(root==NULL)
+		return;
+		
+	map<int,int>mymap;
+	int minL=INT_MAX,maxL=-INT_MAX;
+	queue<pair<TreeNode*,int> >q;
+	q.push(make_pair(root,1));
+	while(!q.empty())
+	{
+		TreeNode* curr=q.front().first;
+		int level=q.front().second;
+		q.pop();
+		
+		minL=min(minL,level);
+		maxL=max(maxL,level);
+		mymap[level]+=curr->val;
+		
+		if(curr->left)
+			q.push(make_pair(curr->left,level+1));
+		if(curr->right)
+			q.push(make_pair(curr->right,level+1));
+	}
+	for(int i=minL;i<=maxL;i++)
+		cout<<mymap[i]<<" ";
+	return;
+}
+Time Complexity: O(n)
+Auxillary Space: O(n)
+
+
+SOLN 2(Using Doubly Linked List)-
+
+struct DLLnode
+{
+	int val;
+	node* prev;
+	node* next;
+};
+
+void verticalSumUtil(node* root, DLLnode* n)
+{
+	n->val = n->val + root->val;
+	
+	if(root->left!=NULL)
+	{
+		if(n->prev==NULL)
+		{
+			n->prev = new DLLnode(0);
+			n->prev->next = n;
+		}
+		verticalSumUtil(root->left,n->prev);
+	}
+	
+	if(root->right!=NULL)
+	{
+		if(n->next==NULL)
+		{
+			n->next = new DLLnode(0);
+			n->next->prev = n;
+		}
+		verticalSumUtil(root->right,n->next);
+	}
+	return;
+}
+	
+void verticalSum(node*root)
+{
+	DLLnode* n = new DLLnode(0);
+	verticalSumUtil(root, n);
+	
+	while(n->prev!=NULL)
+		n = n->prev;
+	
+	while(n!=NULL)
+	{
+		cout<<n->val<<" ";
+		n = n->next;
+	}
+	return;
+}
+Time Complexity: O(n)
+Auxillary Space: O(n)		

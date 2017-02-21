@@ -1,0 +1,23 @@
+//move last element to the front of the linked list
+
+
+Code:
+
+void move(node** head)
+{
+	if((*head)==NULL || (*head)->next==NULL)
+		return;
+	
+	node *secLast=NULL,*last=head;
+	while(last->next!=NULL)
+	{
+		secLast=last;
+		last = last->next;
+	}
+	
+	secLast->next = NULL;
+	last->next = *head;
+	*head = last;
+}
+Time Complexity: O(n)
+Auxillary Space: O(1)	

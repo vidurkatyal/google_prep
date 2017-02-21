@@ -1,0 +1,39 @@
+//finding the floor and ceil of a value in a bst
+
+
+Code:
+
+int ceil(node* root, int key)
+{
+	if(root==NULL)
+		return -1;
+	
+	if(root->key==key)
+		return root->key;
+	if(root->key<key)
+		return ceil(root->right,key);
+	
+	int ans = ceil(root->left,key);
+	if(ans>=key)
+		return ans;
+	return root->key;
+}
+Time Complexity: O(h)
+
+
+int floor(node* root, int key)
+{
+	if(root==NULL)
+		return -1;
+	
+	if(root->key==key)
+		return root->key;
+	if(root->key>key)
+		return floor(root->left,key);
+	
+	int ans = floor(root->right,key);
+	if(ans<=key)
+		return ans;
+	return root->key;
+}
+Time Complexity: O(h)

@@ -9,6 +9,24 @@ can say that the bt is full bt.
 
 */
 
+
+Recursive Soln-
+
+bool isFull(node* root)
+{
+	if(root==NULL)
+		return 1;
+	if(root->left==NULL && root->right==NULL)
+		return 1;
+	
+	if(root->left && root->right)
+		return isFull(root->left) && isFull(root->right);
+	return 0;
+}
+
+
+Iterative Soln-
+
 bool isFull(node* root) {
 
 	if(root==NULL)
@@ -37,6 +55,5 @@ bool isFull(node* root) {
 	}
 	return 1;
 }
-
 Time Complexity: O(n)
 Auxillary Space: O(n)

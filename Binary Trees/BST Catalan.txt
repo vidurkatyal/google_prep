@@ -1,0 +1,42 @@
+//find the number of bsts with n different keys
+
+/* 
+
+The idea is that we have choice for
+n as root nodes. If we consider root
+as node i i know that nodes with value
+1 to i-1 have to be in the left subtree
+and the nodes with value i+1 to n should
+lie in the right subtree.
+Lets denote t(n) be the number of bsts
+with n nodes. using node i the number of
+bsts are t(n-i) * t(i-1) and hence we derive
+at the following formula:
+
+	t(n) = summation from 1 to n 	
+		( t(i-1) * t(n-i) )
+which is the nth catalan number = 2n! / ( (n+1)! n! )
+
+*/
+
+int catalan(int n, int k)
+{
+	if(k>(n-k))
+		k=n-k;
+	
+	int res=1;
+	for(int i=0;i<k;i++)
+	{
+		res*=(n-i);
+		res/=(i+1);
+	}
+	return res;
+}
+
+int answer(int n)
+{
+	return catalan(2*n, n)/(n+1);
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(1)

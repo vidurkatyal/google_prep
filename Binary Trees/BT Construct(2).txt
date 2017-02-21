@@ -1,0 +1,40 @@
+//construct a bt from the given inorder and postorder traversals
+
+
+Code:
+
+int search(int in[], int low, int high, int val)
+{
+	for(int i=low;i<=high;i++)
+	{
+		if(in[i]==val)
+			return i;
+	}
+	return -1;
+}
+
+node* btUtil(int in[], int post[], int low, int high, int *pIndex)
+{
+	if(low>high)
+		return NULL;
+	
+	node* root = newNode(post[*pIndex]);
+	(*pIndex)--;
+	
+	if(low==high)
+		return root;
+	
+	int ind = search(in,low,high,root->key);
+	root->right = btUtil(in,post,ind+1,high,pIndex);
+	root->left = btUtil(in,post,low,ind-1,pIndex);
+	
+	return root;
+}
+
+node* bt(int in[], int post[], int n)
+{
+	int pIndex=n-1;
+	return btUtil(in,post,0,n-1,&pIndex);
+}
+Time Complexity: O(n^2)
+Auxillary Space: O(n)

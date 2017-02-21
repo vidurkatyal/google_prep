@@ -1,0 +1,25 @@
+//insert a value in a sorted linked list so that the linked list remains sorted
+
+
+Code:
+
+void insert(node** head, node* n)
+{
+	node* curr;
+	
+	if(*head==NULL || (*head)->val>= n->val)
+	{
+		n->next = *head;
+		*head = n;
+		return;
+	}
+	
+	curr = *head;
+	while(curr->next!=NULL && curr->next->val< n->val)
+		curr = curr->next;
+	n->next = curr->next;
+	curr->next = n;
+	return;
+}
+Time Complexity: O(n)
+Auxillary Space: O(1)

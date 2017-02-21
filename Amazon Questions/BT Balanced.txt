@@ -1,0 +1,60 @@
+//given a bt determine whether it is height balanced or not
+
+/*
+
+A height balanced bt should satisfy:
+	left subtree is height balanced
+	right subtree is height balanced
+	difference in height of left subtree and right subtree doesnt exceed 1
+
+This height balancing scheme is used in AVL trees
+*/
+
+
+SOLN 1-
+
+int height(node* root)
+{
+	if(root==NULL)
+		return 0;	
+	return 1 + max(height(root->left) , height(root->right));
+}
+
+bool isBalanced(node* root)
+{
+	if(root==NULL)
+		return 1;
+	
+	int lh=height(root->left);
+	int rh=height(root->right);
+	
+	if( abs(lh-rh)<=1 && isBalanced(root->left) 
+		&& isBalanced(root->right) )
+		return 1;
+	return 0;
+}
+Time Compexity: O(n^2)
+Auxillary Space: O(n^2)
+
+
+SOLN 2-
+
+bool isBalanced(node* root,int *h)
+{
+
+	int lh=0,rh=0,ld=0,rd=0;	
+	if(root==NULL)
+	{
+		*h=0;
+		return 1;
+	}
+	
+	ld= isBalanced(root->left,&lh);
+	rd= isBalanced(root->right,&rh);
+	*h = max(lh,rh) + 1;
+	if(abs(lh-rh)<=1 && ld && rd)
+		return 1;
+	return 0;
+}
+Time Complexity: O(n)
+Auxillary Space: O(n)

@@ -1,5 +1,59 @@
 //perform the zigzag level order traversal of a bt
 
+
+SOLN 1-
+
+
+void printSpiral(node*root)
+{
+	if(root==NULL)
+		return;
+	int h=height(root),p=1;
+	for(int i=1;i<=h;i++)
+	{
+		printLevel(root,i,p);
+		if(p==1)
+			p=0;
+		else
+			p=1;
+	}
+	return;
+}
+
+int height(node* root)
+{
+	if(root==NULL)
+		return 0;
+	return max(height(root->left),height(root->right));
+}
+
+void printLevel(node* root, int l, int lt)
+{
+	if(root==NULL)
+		return;
+	if(l==1)
+	{
+		cout<<root->val<<" ";
+		return;
+	}
+	if(lt==1)
+	{
+		printLevel(root->left,l-1,lt);
+		printLevel(root->right,l-1,lt);
+	}
+	else
+	{
+		printLevel(root->right,l-1,lt);
+		printLevel(root->left,l-1,lt);	
+	}
+	return;
+}
+
+Time Complexity: O(n^2)
+
+
+SOLN 2-
+
 vector<vector<int>> zigzagLevelOrder(TreeNode* root) 
 {
         
@@ -46,3 +100,6 @@ vector<vector<int>> zigzagLevelOrder(TreeNode* root)
         }
         return answer;
 }
+
+Time Complexity: O(n)
+Auxillary Space: O(n)

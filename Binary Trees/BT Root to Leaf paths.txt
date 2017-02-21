@@ -1,0 +1,26 @@
+//print all the root to leaf paths in the given bt
+
+
+vector<vector<int> >answer;
+vector<int>ans;
+
+void rec(node* root)
+{
+	if(root==NULL)
+		return;
+	if(root->left==NULL && root->right==NULL)
+	{
+		ans.push_back(root->val);
+		answer.push_back(ans);
+		ans.erase(ans.begin()+ans.size()-1);
+		return;
+	}
+	
+	ans.push_back(root->val);
+	rec(root->left);
+	rec(root->right);
+	ans.erase(ans.begin()+ans.size()-1);
+	return;
+}
+
+Time Complexity: O(n)

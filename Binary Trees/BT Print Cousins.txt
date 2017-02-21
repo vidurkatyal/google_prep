@@ -8,6 +8,7 @@ lies or except the siblings in that level.
 
 */
 
+
 void printCousins(TreeNode* root,int level,TreeNode* par) {
 	
 	queue<pair<TreeNode*,int> >q;
@@ -22,13 +23,13 @@ void printCousins(TreeNode* root,int level,TreeNode* par) {
 		{
 			if(curr!=par && l==level)
 				cout<<curr->left->val<<" ";
-			q.push(make_pair(curr->left,l+1);
+			q.push(make_pair(curr->left,l+1));
 		}
 		if(curr->right)
 		{
 			if(curr!=par && l==level)
 				cout<<curr->right->val<<" ";
-			q.push(make_pair(curr->right,l+1);
+			q.push(make_pair(curr->right,l+1));
 		}
 	}
 	return;
@@ -64,6 +65,5 @@ void cousins(TreeNode* root,TreeNode* node) {
 	}
 	return;
 }
-
 Time Complexity: O(n)
 Auxillary Space: O(n)

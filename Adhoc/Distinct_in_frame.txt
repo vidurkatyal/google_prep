@@ -1,0 +1,40 @@
+/*
+given an array find number of distinct numbers in every
+frame of size k
+*/
+
+void distinctFrame(vector<int>arr, int k)
+{
+	
+	map<int,int>mymap;
+	int n=arr.size();
+	
+	int dis=0;
+	for(int i=0;i<k;i++)
+	{
+		mymap[arr[i]++;
+		if(mymap[arr[i]]==1)
+			dis++;
+	}
+	cout<<dis<<" ";
+	
+	int st=1,en=k;
+	while(en<n)
+	{
+		mymap[arr[st-1]]--;
+		if(mymap[arr[st-1]]==0)
+			dis--;
+		
+		mymap[arr[en]]++;
+		if(mymap[arr[en]]==1)
+			dis++;
+		
+		cout<<dis<<" ";
+		st++;
+		en++;
+	}
+}
+
+Time Complexity: O(n)
+Auxillary Space: O(n)
+

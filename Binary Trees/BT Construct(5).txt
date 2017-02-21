@@ -1,0 +1,27 @@
+//construct a full bt from the preorder traversal array along with an array denoting whether the node is leaf or internal
+
+
+Code:
+
+node* btUtil(int pre[], char preLN[], int *preIndex, int n)
+{
+	if((*preIndex)==n)
+		return NULL;
+	
+	node* root = newNode(pre[(*preIndex)]);
+	*preIndex = *preIndex+1;
+	
+	if(preLN[(*preIndex)]=='N')
+	{
+		root->left = btUtil(pre,preLN,preIndex,n);
+		root->right = btUtil(pre,preLN,preIndex,n);
+	}
+	return root;
+}
+
+node* bt(int pre[],char preLN[], int n)
+{
+	int preIndex=0;
+	return btUtil(pre,preLN,&preIndex,n);
+}
+Time Complexity: O(n)

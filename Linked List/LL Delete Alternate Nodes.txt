@@ -1,0 +1,24 @@
+//delete alternate nodes in a linked list
+
+
+Code:
+
+void deleteAlt(node* head)
+{
+	if(head==NULL)
+		return;
+	
+	node* prev = head;
+	node* curr = head->next;
+	while(prev!=NULL && curr!=NULL)
+	{
+		prev->next = curr->next;
+		free(curr);
+		prev = prev->next;
+		if(prev!=NULL)
+			curr = prev->next;
+	}
+	return;
+}
+Time Complexity: O(n)
+Auxillary Space: O(1)

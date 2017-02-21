@@ -41,7 +41,6 @@ int KSmallest(TreeNode* root,int k) {
 	
 	return -1;
 }
-
 Time Complexity: O(n)
 Auxillary Space: O(n) if stack space is to be considered.
 
@@ -89,6 +88,5 @@ int KSmallest(TreeNode* root,int k) {
 	}
 	return -1;
 }
-
 Time Complexity: O(n)
 Auxillary Space: O(1)

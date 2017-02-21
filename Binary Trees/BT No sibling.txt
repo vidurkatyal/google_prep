@@ -1,0 +1,36 @@
+//given a bt print the nodes which dont have a sibling
+
+/*
+
+This problem is a tree traversal prob where
+we do  a traversal of the given bt and print
+all the nodes which have 1 child.
+
+*/
+
+void printSingle(node* root) {
+
+	if(root==NULL)
+		return;
+	
+	if(root->left!=NULL && root->right!=NULL)
+	{
+		printSingle(root->left);
+		printSingle(root->right);
+	}
+	
+	else if(root->left!=NULL)		
+	{
+		cout<<root->left->val<<" ";
+		printSingle(root->left);
+	}
+	
+	else if(root->right!=NULL)
+	{
+		cout<<root->right->val<<" ";
+		printSingle(root->right);
+	}
+	return;
+}
+
+Time Complexity: O(n)

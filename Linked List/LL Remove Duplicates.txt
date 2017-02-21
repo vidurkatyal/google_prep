@@ -1,0 +1,69 @@
+//given a sorted linked list remove duplicates from it
+
+
+Code:
+
+void remove(node* head)
+{
+	if(head==NULL)
+		return;
+	
+	node* curr = head;
+	while(curr->next!=NULL)
+	{
+		if(curr->val == curr->next->val)
+		{
+			node* next = curr->next->next;
+			free(curr->next);
+			curr->next = next;
+		}
+		else
+			curr = curr->next;
+	}
+	return;
+}
+Time Complexity: O(n)
+Auxillary Space: O(1)
+
+
+//given a unsorted linked list, remove duplicates in them
+
+
+SOLN 1-
+
+Use two loops and chek whether a duplicate value occurs
+in that case just remove it otherwise keep on continuing
+util you reach the end.
+
+Time Compleixty: O(n^2)
+Auxillary Space: O(1)
+
+
+SOLN 2 (Hashing):
+
+Code:
+
+void remove(node* head)
+{
+	if(!head)
+		return;
+	
+	map<int,int>mymap;
+	mymap[head->val]=1;
+	node* curr = head;
+	while(curr->next!=NULL)
+	{
+		if(mymap[curr->next->val])
+		{
+			node* next = curr->next->next;	
+			free(curr->next);
+			curr->next = next;
+		}
+		else
+			curr = curr->next;
+		mymap[curr->val]=1;
+	}
+	return;
+}
+Time Complexity: O(n)
+Auxillary Space: O(n)

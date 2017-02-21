@@ -1,0 +1,69 @@
+//given a bst where two nodes are swapped, correct the bst
+
+SOLN 1-
+
+Do the inorder traversal and store the result in 
+an auxillary array and compare the array with the
+sorted aray to get the nodes which were swapped.
+
+Time Complexity: O(nlogn)
+Auxillary Space: O(n)
+
+
+SOLN 2-
+
+We maintain three pointers, first middle and 
+last. When we get the first instance that the
+current value is less than prev value, we 
+update the first with prev and midle with curr.
+When we get second instance we update the middle
+and the last.
+
+Now two cases arise:
+
+	1: When swapped nodes are not adjacent.
+		swap first and last
+	
+	2: When swapped nodes are adjacent.
+		swap first and middle
+
+Code:
+
+void correctBSTUtil(node* root, node** first, node** middle,
+			node** last, node** prev)
+{
+	if(root==NULL)
+		return;
+	
+	correctBSTUtil(root->left,first,middle,last,prev);
+	
+	if((*prev) && (*prev)->val>root->val)
+	{
+		if(!(*first))
+		{
+			*first=*prev;
+			*middle=root;
+		}
+		else
+			*last=root;
+	}
+	*prev=root;
+	
+	correctBSTUtil(root->right,first,middle,last,prev);
+	return;
+}
+
+void correctBST(node* root)
+{
+	node *first,*middle,*last,*prev;
+	first = middle = last = prev = NULL;
+
+	correctBSTUtil(root,&first,&middle,&last,&prev);
+	
+	if(first && last)
+		swap(first and last);
+	else
+		swap(first and middle);
+	return;
+}
+Time Complexity: O(n)

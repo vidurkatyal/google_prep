@@ -1,0 +1,40 @@
+//detect a loop in a linked list
+
+
+SOLN 1-
+
+Use hashing to store the addresses of a node. If
+i reach the end that is NULL return 0 otherwise
+the same node is accessed twice it means the given
+linked list has a loop and return 1 in that case.
+
+Time Complexity: O(n)
+Auxillary Space: O(n)
+
+
+SOLN 2-
+
+Use two pointers move one by 1 and other by 2.
+If both of the pointers meet at some point of
+time in that case a loop exists and return true
+otherwise there is no loop and return false.
+
+Code:
+
+bool isLoop(node* head)
+{
+	if(head==NULL)
+		return 0;
+	
+	node *sp=head,*fp=head;
+	while(sp && fp && fp->next)
+	{
+		sp = sp->next;
+		fp = fp->next->next;
+		if(sp==fp)
+			return 1;
+	}
+	return 0;
+}
+Time Complexity: O(n)
+Auxillary Space: O(1)

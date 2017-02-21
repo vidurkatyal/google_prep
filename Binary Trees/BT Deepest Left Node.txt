@@ -1,0 +1,65 @@
+//find the deepest left node in a bt
+
+SOLN 1-
+
+Using level order traversal
+
+int deepLeft(node* root) {
+
+	if(root==NULL)
+		return -1;
+	
+	int val=-1;
+	queue<pair<node* ,int> >q;
+	q.push(make_pair(root,1));
+	while(!q.empty())
+	{
+		node* curr=q.front().first;
+		int l=q.front().second;
+		q.pop();
+		
+		if(curr->left)
+		{
+			if(curr->left->left==NULL && curr->left->right==NULL)
+				val=curr->left->val;
+			q.push(curr->left);
+		}
+		if(curr->right)
+			q.push(curr->right);
+	}
+	return val;
+}
+
+Time Complexity: O(n)	
+
+
+SOLN 2-
+
+Recursive soln
+
+void deepLeftUtil(node* root,int l, int *m, bool isLeft, node** n) {
+
+	if(root==NULL)
+		return;
+	
+	if(isLeft && !root->left && !root->right && l> (*m))
+	{
+		*n=root;
+		*m=l;
+		return;
+	}
+		
+	deepLeftUtil(root->left,l+1,m,true,n);
+	deepLeftUtil(root->right,l+1,m,false,n);
+	return;
+}
+
+Node* deepLeft(node* root) {
+
+	int maxLevel=0;
+	Node* result=NULL;
+	deepLeftutil(root,0,&maxLevel,false,&result);
+	return result;
+}
+
+Time Complexity: O(n)		

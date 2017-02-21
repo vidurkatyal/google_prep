@@ -1,0 +1,17 @@
+//print all possible paths to travel from 1,1 to n,m where you are allowed to move right or down
+
+SOLN-
+
+vector<pair<int,int> >v;
+void rec(int n,int m, int i, int j)
+{
+	if(i>0 && i<=n && j>0 && j<=m)
+	{
+		v.push_back(make_pair(i,j));
+		rec(n,m,i+1,j);
+		rec(n,m,i,j+1);
+	}
+	return;
+}
+
+Time Complexity: O(2^n)

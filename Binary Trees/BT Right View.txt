@@ -1,5 +1,6 @@
 // print the right view of a bt
 
+
 SOLN 1-
 
 vector<int> rightSideView(TreeNode* root) {
@@ -32,7 +33,6 @@ vector<int> rightSideView(TreeNode* root) {
         answer.push_back(prevNode->val);
         return answer;
 }
-
 Time Complexity: O(n)
 Auxillary Space: O(n)
 
@@ -61,6 +61,5 @@ void rightView(node* root) {
 	rightViewUtil(root,1,&m);
 	return;
 }
-
 Time Complexity: O(n)
 Auxillary Space: O(n)

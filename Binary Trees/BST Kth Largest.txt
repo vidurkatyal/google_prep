@@ -1,0 +1,21 @@
+//find the kth largest element in a bst
+
+
+Code: 
+
+void kLargest(node* root, int k, int &c)
+{
+	if(root==NULL || c>=k)
+		return;
+	
+	kLargest(root->right,k,c);
+	c++;
+	if(c==k)
+	{
+		cout<<root->val<<" ";
+		return;
+	}	
+	kLargest(root->left,k,c);
+	return;
+}
+Time Complexity: O(h+k)

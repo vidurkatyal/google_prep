@@ -1,0 +1,30 @@
+//given a bst and an intger k find the node with min absolute diff
+
+
+Code:
+
+void minDiff(node* root, int k, int *min_diff, int *key)
+{
+	if(root==NULL)
+		return;
+	
+	int val=root->val;
+	if(val==k)
+	{
+		*key=root->key;
+		return;
+	}
+	
+	if((*min_diff)>abs(val-k))
+	{
+		*min_diff=abs(val-k);
+		*key=val;
+	}
+	
+	if(k<val)
+		minDiff(root->left,k,min_diff,key);
+	else
+		minDiff(root->right,k,min_diff,key);
+	return;
+}
+Time Complexity: O(h)	

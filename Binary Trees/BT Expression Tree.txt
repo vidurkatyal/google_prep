@@ -1,3 +1,67 @@
+//given a postfix expression construct the bt
+
+/*
+
+The idea is to use a stack and
+check if the element is an integer
+push the node as it is because it
+will be a leaf node while if its a 
+operator make it as new node and
+its left and right child will be top
+two elements of the stack and push it
+again in the stack.
+Last element in the stack is the root
+of the constructed bt.
+
+*/
+
+node* constructTree(int postfix[] )
+{
+
+	stack<node*>s;
+	node *t,*t1*t2;
+	
+	for(int i=0;i<strlen(postfix);i++)
+	{
+		if(postfix[i]==operator)
+		{
+			t=newNode(postfix[i]);
+			t1=s.top();
+			s.pop();
+			t2=s.top();
+			s.pop();
+			
+			t->right=t1;
+			t->left=t2;
+			
+			s.push(t);
+		}
+		else
+		{
+			t=newNode(postfix[i]);
+			s.push(t);
+		}
+	}
+		
+	t=s.top();
+	s.pop();
+	return t;
+}
+
+Time Complexity: O(n)
+
+
+/*
+
+For the expression tree:
+
+	infix expression -> inorder traversal
+	prefix expression -> preorder traversal
+	postfix expression -> postorder traversal
+
+*/	
+
+
 //given a tree where each node except leaf node represents operator "+,-,*,/". Leaf nodes are numeric values. Evalute such a bt.
 
 /*
