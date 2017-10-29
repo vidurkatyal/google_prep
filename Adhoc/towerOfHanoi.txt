@@ -1,0 +1,22 @@
+// C  function to solve tower-of-hanoi puzzle
+
+#include <stdio.h>
+
+void towerOfHanoi(int n, char from_stack, char to_stack, char aux_stack)
+{
+    if (n == 1)
+    {
+        printf("n Moving disk 1 from stack %c to stack %c", from_stack, to_stack);
+        return;
+    }
+    towerOfHanoi(n-1, from_stack, aux_stack, to_stack);
+    printf("n Move disk %d from stack %c to stack %c", n, from_stack, to_stack);
+    towerOfHanoi(n-1, aux_stack, to_stack, from_stack);
+}
+
+int main()
+{
+    int n = 5; 
+    towerOfHanoi(n, 'A', 'C', 'B');  
+    return 0;
+}
