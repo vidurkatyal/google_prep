@@ -1,41 +1,54 @@
 //implement a stack with push, pop, top, and getMin- returning the minimum element among the stack elements
+#include <stack>
+#include <stdexcept>
+#include <utility>
 
 class MinStack {
 public:
-    
-    stack<pair<int,int> >s;
-    /** initialize your data structure here. */
-    MinStack() {
-        while(!s.empty())
+
+    MinStack()
+    {
+    }
+
+    ~MinStack()
+    {
+    }
+
+    void push(const int x)
+    {
+        int val = x;
+        if(!s.empty()) {
+            val = s.top().second;
+        }
+        s.push(std::make_pair(x, min(x, val)));
+    }
+
+    void pop()
+    {
+        if(!s.empty()) {
             s.pop();
+            return;
+        }
+        throw std::logic_error("pop called on empty stack.");
     }
     
-    void push(int x) {
-        
-        int val=x;
-        if(!s.empty())
-            val=s.top().second;
-        s.push(make_pair(x,min(x,val)));
-    }
-    
-    void pop() {
-        if(!s.empty())
-            s.pop();
-    }
-    
-    int top() {
-        
-        if(!s.empty())
+    int top()
+    {
+        if(!s.empty()) {
             return s.top().first;
-        return -1;
+        }
+        throw std::logic_error("top called on empty stack.");
     }
-    
-    int getMin() {
-        
-        if(!s.empty())
+
+    int getMin()
+    {
+        if(!s.empty()) {
             return s.top().second;
-        return -1;
+        }
+        throw std::logic_error("getMin called on empty stack.");
     }
+private:
+    std::stack<std::pair<int,int>> s;
 };
 
-Time Complexxity: O(1)
+Time Complexity: O(1)
